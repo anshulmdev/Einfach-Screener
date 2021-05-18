@@ -20,7 +20,6 @@ import Auth from "@/layouts/Auth.vue";
 import Dashboard from "@/views/admin/Dashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Tables from "@/views/admin/Tables.vue";
-import Maps from "@/views/admin/Maps.vue";
 
 // views for Auth layout
 
@@ -39,6 +38,9 @@ import Mcq from "@/views/admin/Mcq.vue";
 import Coding from "@/views/admin/Coding.vue"
 import Regex from "@/views/admin/Regex.vue";
 import Rest from "@/views/admin/Rest.vue";
+
+//Support
+import Ticket from "@/views/admin/Ticket.vue"
 
 // routes
 
@@ -77,8 +79,8 @@ const routes = [
         component: Tables,
       },
       {
-        path: "/admin/maps",
-        component: Maps,
+        path: "/admin/ticket",
+        component: Ticket,
       },
     ],
   },

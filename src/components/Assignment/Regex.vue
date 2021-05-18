@@ -150,16 +150,29 @@
         </div>
       </div>
     </div>
+    <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
+
+<div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+  <span class="bg-emerald-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+    top: 50%; left:50%
+">
+    <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </span>
+</div>
+      </div>
   </div>
 </template>
 <script>
 import VueCookies from "vue-cookies";
 import firebase from "../../firebase";
+import CryptoJS from "crypto-js";
 
 export default {
   data() {
     return {
       questions: null,
+      loading: null
     };
   },
   props: {
@@ -185,12 +198,12 @@ export default {
       const score = await req.json();
       const attempted = Object.values(this.questions).filter((e) => e.selected).length
       const details = {}
-      details[VueCookies.get("applicantEmail")] = {regex: {score, attempted}}
-      await firebase.firestore().collection("scores").doc(VueCookies.get("companyUid")).set(details, {merge: true});
+      details[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)] = {regex: {score, attempted}}
+      await firebase.firestore().collection("scores").doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)).set(details, {merge: true});
     },
     async fetchRTDB() {
-      if (VueCookies.get("companyUid") && VueCookies.get("applicantEmail")) {
-        const companyUid = VueCookies.get("companyUid");
+      if (CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8) && CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)) {
+        const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
         const snapshotData = await firebase
           .firestore()
           .collection("accounts")
@@ -210,9 +223,11 @@ export default {
           path: "/",
         });
       }
+      this.loading = null
     },
   },
   created() {
+    this.loading = true
     this.fetchRTDB();
   },
 };

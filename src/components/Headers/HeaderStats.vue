@@ -27,6 +27,7 @@
 import CardStats from "@/components/Cards/CardStats.vue";
 import firebase from "../../firebase";
 import VueCookies from "vue-cookies";
+import CryptoJS from "crypto-js";
 
 export default {
   components: {
@@ -46,10 +47,10 @@ export default {
   },
   methods: {
     async fetchScore () {
-      const req = await firebase.firestore().collection('scores').doc(VueCookies.get("companyUid"))
+      const req = await firebase.firestore().collection('scores').doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8))
       await req.onSnapshot(
           (snapshot) => {
-            this.scores = snapshot.data()[VueCookies.get("applicantEmail")];})
+            this.scores = snapshot.data()[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)];})
     }
   },
   computed: {
@@ -59,17 +60,17 @@ export default {
       let codingTotal = 0
       Object.keys(assignments).forEach((e) => {
         if (e === 'mcq') generalArray.push({name: 'MCQs', total: assignments[e].length, icon: 'list', color: 'bg-pink-500'
-        , score:this.scores.mcq ? this.scores.mcq.attempted : 0})
+        , score: this.scores && this.scores.mcq ? this.scores.mcq.attempted : 0})
         if (e === 'regex') generalArray.push({name: 'Regex', total: assignments[e].length, icon: 'fingerprint'
-        , color: 'bg-red-500', score:this.scores.regex ? this.scores.regex.attempted : 0})
+        , color: 'bg-red-500', score: this.scores && this.scores.regex ? this.scores.regex.attempted : 0})
         if (e === 'rest') generalArray.push({name: 'REST APIs', total: assignments[e].length, icon: 'cloud-upload-alt'
-        , color: 'bg-orange-500', score:this.scores.rest ? this.scores.rest.attempted : 0})
+        , color: 'bg-orange-500', score: this.scores && this.scores.rest ? this.scores.rest.attempted : 0})
         if (e === 'array' || e === 'dp') {
           codingTotal += assignments[e].length
         }
       })
       generalArray.push({name: 'Programming', total: codingTotal, icon: 'code', color: 'bg-emerald-500'
-      , score:this.scores.coding ? Object.keys(this.scores.coding).length : 0})
+      , score: this.scores && this.scores.coding ? Object.keys(this.scores.coding).length : 0})
       return generalArray.sort((a, b) => a.name.localeCompare(b.name))
     }
   }

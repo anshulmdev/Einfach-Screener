@@ -46,10 +46,10 @@
             </li>
             <li>
               <a
-                href="https://github.com/creativetimofficial/vue-notus/blob/main/LICENSE.md?ref=vn-footer-admin"
+                href="/admin/ticket"
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
-                MIT License
+                Support
               </a>
             </li>
           </ul>

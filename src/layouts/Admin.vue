@@ -9,6 +9,17 @@
         <footer-admin />
       </div>
     </div>
+    <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
+
+<div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+  <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+    top: 50%;
+">
+    <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </span>
+</div>
+      </div>
   </div>
 </template>
 <script>
@@ -18,13 +29,15 @@ import HeaderStats from "@/components/Headers/HeaderStats.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
 import VueCookies from "vue-cookies";
 import firebase from "../firebase";
+import CryptoJS from "crypto-js";
 export default {
   name: "admin-layout",
   data() {
     return {
       secondsLeft: "",
       companyFetchedData: null,
-      candidateDatabase: null
+      candidateDatabase: null,
+      loading: null
     };
   },
   components: {
@@ -35,8 +48,6 @@ export default {
   },
   methods: {
     async startTimer() {
-      VueCookies.set("companyUid", "XJNf2GucFiv4uwJULqlr")
-      VueCookies.set("applicantEmail", "anshulm.dev@gmail.com")
       const secondsToHms = function (d) {
         d = Number(d);
         var h = Math.floor(d / 3600);
@@ -48,9 +59,9 @@ export default {
         var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
         return hDisplay + mDisplay + sDisplay;
       };
-      if (VueCookies.get("companyUid") && VueCookies.get("applicantEmail")) {
-        const email = VueCookies.get("applicantEmail");
-        const companyUid = VueCookies.get("companyUid");
+      if (VueCookies.get("fbb3cu24") && VueCookies.get("fbb3em24")) {
+        const email = CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
+        const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
         const snapshotData = await firebase
           .firestore()
           .collection("accounts")
@@ -96,9 +107,11 @@ export default {
           path: "/",
         });
       }
+      this.loading = null
     },
   },
   created() {
+    this.loading = true
     this.startTimer();
   },
 };

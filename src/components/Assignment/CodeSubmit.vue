@@ -8,6 +8,7 @@
       <table
         v-if="response && !response.err"
         class="items-center w-full bg-transparent border-collapse"
+        style="max-height: 150px min-height: 150px"
       >
         <thead class="thead-light">
           <tr>
@@ -90,6 +91,7 @@
 <script>
 import VueCookies from "vue-cookies";
 import firebase from "../../firebase";
+import CryptoJS from "crypto-js";
 export default {
   props: {
     response: Object,
@@ -100,18 +102,18 @@ export default {
     // eslint-disable-next-line no-unused-vars
     async submit(score) {
       const details = {}
-      details[VueCookies.get("applicantEmail")] = {}
-      const req = await firebase.firestore().collection("scores").doc(VueCookies.get("companyUid"))
+      details[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)] = {}
+      const req = await firebase.firestore().collection("scores").doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8))
       const res = await req.get()
-      const response = res.data()[VueCookies.get("applicantEmail")]
+      const response = res.data()[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)]
       if (response.coding) {
         response.coding[this.question] = score
       } else{
         response.coding = {}
         response.coding[this.question] = score
       }
-      details[VueCookies.get("applicantEmail")] = response
-      await firebase.firestore().collection("scores").doc(VueCookies.get("companyUid")).set(details, {merge: true});
+      details[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)] = response
+      await firebase.firestore().collection("scores").doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)).set(details, {merge: true});
     },
     finalSubmit () {
       if (this.response && !this.response.err) {

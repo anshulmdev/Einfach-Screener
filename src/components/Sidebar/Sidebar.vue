@@ -80,7 +80,7 @@
         <!-- Divider -->
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
-        <h6
+        <h6 v-if="codingRound.length"
           class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pb-4 no-underline"
         >
           Coding Section
@@ -126,7 +126,7 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/dashboard"
+              to="/admin/ticket"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -150,31 +150,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/settings"
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                :href="href"
-                @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
-                :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-bug mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Report Bug
-              </a>
-            </router-link>
-          </li>
-
-          <li class="items-center">
-            <router-link
-              to="/admin/tables"
+              to="/"
               v-slot="{ href, navigate, isActive }"
             >
               <a

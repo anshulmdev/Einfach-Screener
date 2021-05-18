@@ -147,7 +147,8 @@
 
 <script>
 import firebase from "../../firebase";
-import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies';
+import CryptoJS from "crypto-js";
 export default {
   layout: "LoginLayout",
   data() {
@@ -167,8 +168,10 @@ export default {
     async startTest() {
       if (this.proceed === true) {
       try {
-      VueCookies.set('companyUid', this.$route.params.id);
-      VueCookies.set('applicantEmail', this.candidateData.email);
+      var cipherEmail = CryptoJS.AES.encrypt(this.candidateData.email,"736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString();
+      var cipherUid = CryptoJS.AES.encrypt(this.$route.params.id,"736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString();
+      VueCookies.set('fbb3cu24', cipherUid);
+      VueCookies.set('fbb3em24', cipherEmail);
       this.loading = true
       const entry = await firebase
         .firestore()

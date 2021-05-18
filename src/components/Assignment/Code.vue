@@ -112,10 +112,7 @@
                             type="text"
                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             rows="6"
-                          >
-                    [1,1,1,1]
-                  </textarea
-                          >
+                          />
                         </div>
                         <div
                           v-bind:class="{
@@ -175,6 +172,17 @@
         </div>
       </div>
     </div>
+    <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
+
+<div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+  <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+    top: 50%; left:50%
+">
+    <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </span>
+</div>
+      </div>
   </div>
 </template>
 
@@ -192,6 +200,7 @@ import "prismjs/themes/prism-tomorrow.css"; // import syntax highlighting styles
 
 import VueCookies from "vue-cookies";
 import firebase from "../../firebase";
+import CryptoJS from "crypto-js";
 
 export default {
   data() {
@@ -204,6 +213,7 @@ export default {
       color: "dark",
       questions: null,
       openTab: 1,
+      loading: null,
       code: `// Test will check "finalFunction" only
 var finalFunction = function(nums) {
   return nums;
@@ -234,6 +244,7 @@ var finalFunction = function(nums) {
       } catch (err) {
         this.submitResponse = err.message;
       }
+      this.loading = null
     },
     async runCode(code, test) {
       const database = { code, test };
@@ -250,12 +261,13 @@ var finalFunction = function(nums) {
       } catch (err) {
         this.runResponse = err.message;
       }
+      this.loading = null
     },
     async checkAndFetch() {
       this.openTab = 1
       this.currentQuestionIndex = 0;
       this.totalQuestion = 1;
-      const companyUid = VueCookies.get("companyUid");
+      const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
       this.code = `// Test will check "finalFunction" only
 var finalFunction = function(nums) {
   return nums;
@@ -283,13 +295,16 @@ var finalFunction = function(nums) {
       } else {
         this.$router.push({ path: "/" });
       }
+      this.loading = null
     },
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber;
       if (tabNumber === 2) {
+        this.loading = true
         this.runCode(this.code, this.testCases);
       }
       if (tabNumber === 3) {
+        this.loading = true
         this.submitCode(this.code, this.testCases, Object.values(this.questions)[this.currentQuestionIndex].heading, this.category);
       }
     },
@@ -315,6 +330,7 @@ var finalFunction = function(nums) {
     CodeSubmit,
   },
   created() {
+    this.loading = true
     this.checkAndFetch();
   },
 };
