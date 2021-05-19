@@ -11,7 +11,7 @@
               class="font-semibold text-lg"
               :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']"
             >
-              Regex Pattern (in JS Only)
+              {{currentQuestion}}
             </h3>
           </div>
         </div>
@@ -89,13 +89,29 @@
                     color === 'light' ? 'text-blueGray-600' : 'text-white',
                   ]"
                 >
-                  {{ item.question }}
+                <button
+                @click="currentQuestion = item.question"
+                  class="ml-3 font-bold"
+                  :class="[
+                    color === 'light' ? 'text-blueGray-600' : 'text-white',
+                  ]"
+                >
+                  {{ heading(item.question) }}
+                </button>
                 </span>
               </th>
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
               >
-                {{ item.sentence }}
+                <button
+                @click="currentQuestion = item.sentence"
+                  class="ml-3"
+                  :class="[
+                    color === 'light' ? 'text-blueGray-600' : 'text-white',
+                  ]"
+                >
+                  {{ heading(item.sentence) }}
+                </button>
               </td>
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -172,7 +188,8 @@ export default {
   data() {
     return {
       questions: null,
-      loading: null
+      loading: null,
+      currentQuestion: 'Regex Pattern (in JS Only)'
     };
   },
   props: {
@@ -185,6 +202,13 @@ export default {
     },
   },
   methods: {
+    heading (value) {
+      if (value.length <=50) {
+        return value
+      } else{
+        return `${value.slice(0,50)}...`
+      }
+    },
     async submit() {
       const database = this.questions;
       const req = await fetch(

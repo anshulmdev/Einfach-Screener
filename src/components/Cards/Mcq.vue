@@ -12,7 +12,7 @@
               class="font-semibold text-lg"
               :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']"
             >
-              Multiple Choice Questions
+              {{currentQuestion}}
             </h3>
           </div>
         </div>
@@ -74,14 +74,15 @@
                   class="h-12 w-12 bg-white rounded-full border"
                   alt="..."
                 />
-                <span
+                <button
+                @click="currentQuestion = item.heading"
                   class="ml-3 font-bold"
                   :class="[
                     color === 'light' ? 'text-blueGray-600' : 'text-white',
                   ]"
                 >
-                  {{ item.heading }}
-                </span>
+                  {{ heading(item.heading) }}
+                </button>
               </th>
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -164,7 +165,8 @@ export default {
   data() {
     return {
       questions: null,
-      loading : null
+      loading : null,
+      currentQuestion: 'Multiple Choice Questions'
     };
   },
   props: {
@@ -177,6 +179,13 @@ export default {
     },
   },
   methods: {
+    heading (value) {
+      if (value.length <=50) {
+        return value
+      } else{
+        return `${value.slice(0,20)} - [click to view]`
+      }
+    },
     async submit() {
       const database = this.questions;
       const req = await fetch(
