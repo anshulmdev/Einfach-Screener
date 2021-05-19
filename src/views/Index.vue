@@ -8,20 +8,10 @@
         <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
           <div class="pt-32 sm:pt-0">
             <h2 class="font-semibold text-4xl text-blueGray-600">
-              Vue Notus - A beautiful extension for Tailwind CSS.
+              Einfach Tech
             </h2>
             <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
-              Vue Notus is Free and Open Source. It does not change any of the
-              CSS from
-              <a
-                href="https://tailwindcss.com/?ref=creativetim"
-                class="text-blueGray-600"
-                target="_blank"
-              >
-                Tailwind CSS.
-              </a>
-              It features multiple HTML elements and it comes with dynamic
-              components for ReactJS, Vue and Angular.
+              Einfach Tech is a complete hiring package that helps you recruit tech teams with ease. Complete architecture to host, deploy, manage tech hiring
             </p>
             <div class="mt-12">
               <a
@@ -36,7 +26,7 @@
                 class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 target="_blank"
               >
-                Github Star
+                Contact
               </a>
             </div>
           </div>
@@ -80,7 +70,7 @@
             >
               <img
                 alt="..."
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                src="https://firebasestorage.googleapis.com/v0/b/hire-298805.appspot.com/o/companyImages%2F5014808a73a433752970f90728cd217d.png?alt=media&token=f946a218-6f07-431f-8afe-ef2f046bf296"
                 class="w-full align-middle rounded-t-lg"
               />
               <blockquote class="relative p-8 mb-4">
@@ -92,16 +82,14 @@
                 >
                   <polygon
                     points="-30,95 583,95 583,65"
-                    class="text-emerald-500 fill-current"
+                    class="text-emerald-900 fill-current"
                   ></polygon>
                 </svg>
                 <h4 class="text-xl font-bold text-white">
                   Great for your awesome project
                 </h4>
                 <p class="text-md font-light mt-2 text-white">
-                  Putting together a page has never been easier than matching
-                  together pre-made components. From landing pages presentation
-                  to login areas, you can easily customise and built your pages.
+                  aaaaaaaaaaaaaaaa
                 </p>
               </blockquote>
             </div>
@@ -118,11 +106,10 @@
                       <i class="fas fa-sitemap"></i>
                     </div>
                     <h6 class="text-xl mb-1 font-semibold">
-                      CSS Components
+                      Realtime Monitoring
                     </h6>
                     <p class="mb-4 text-blueGray-500">
-                      Vue Notus comes with a huge number of Fully Coded CSS
-                      components.
+                      Monitor application in realtime with full security access
                     </p>
                   </div>
                 </div>
@@ -134,11 +121,10 @@
                       <i class="fas fa-drafting-compass"></i>
                     </div>
                     <h6 class="text-xl mb-1 font-semibold">
-                      JavaScript Components
+                      Email Automation
                     </h6>
                     <p class="mb-4 text-blueGray-500">
-                      We also feature many dynamic components for React, NextJS,
-                      Vue and Angular.
+                      Applicants get reported automatically according to test results
                     </p>
                   </div>
                 </div>
@@ -151,10 +137,9 @@
                     >
                       <i class="fas fa-newspaper"></i>
                     </div>
-                    <h6 class="text-xl mb-1 font-semibold">Pages</h6>
+                    <h6 class="text-xl mb-1 font-semibold">Custom Form</h6>
                     <p class="mb-4 text-blueGray-500">
-                      This extension also comes with 3 sample pages. They are
-                      fully coded so you can start working instantly.
+                      Host dedicated custom form and link on your website
                     </p>
                   </div>
                 </div>
@@ -166,11 +151,10 @@
                       <i class="fas fa-file-alt"></i>
                     </div>
                     <h6 class="text-xl mb-1 font-semibold">
-                      Documentation
+                      Library 1000+
                     </h6>
                     <p class="mb-4 text-blueGray-500">
-                      Built by developers for developers. You will love how easy
-                      is to to work with Vue Notus.
+                      Get access to thousands of questions and host unlimited assignments
                     </p>
                   </div>
                 </div>
@@ -189,59 +173,57 @@
               <i class="fas fa-sitemap text-xl"></i>
             </div>
             <h3 class="text-3xl mb-2 font-semibold leading-normal">
-              CSS Components
+              100+ Features
             </h3>
             <p
               class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600"
             >
-              Every element that you need in a product comes built in as a
-              component. All components fit perfectly with each other and can
-              have different colours.
+              Get access to all the features of complete solution even on starter plan. Proceed with hiring on pay as you go basis
             </p>
             <div class="block pb-6">
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Buttons
+                Hosting
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Inputs
+                Deployment
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Labels
+                Emails
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Menus
+                Templates
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Navbars
+                Forms
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Pagination
+                Accounts
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Progressbars
+                Resume
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Typography
+                Realtime
               </span>
             </div>
             <a
-              href="https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vn-index"
+              href="#"
               target="_blank"
               class="font-bold text-blueGray-700 hover:text-blueGray-500 ease-linear transition-all duration-150"
             >
@@ -378,7 +360,7 @@
                   </div>
                 </a>
                 <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vn-index"
+                  href="#"
                   target="_blank"
                 >
                   <div
@@ -405,65 +387,63 @@
               <i class="fas fa-drafting-compass text-xl"></i>
             </div>
             <h3 class="text-3xl mb-2 font-semibold leading-normal">
-              Javascript Components
+              Multiple Language Support
             </h3>
             <p
               class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600"
             >
-              In order to create a great User Experience some components require
-              JavaScript. In this way you can manipulate the elements on the
-              page and give more options to your users.
+              Applicants get access to write and test in multiple language environments.
+              All environments are serverless which reduced cost for both client and companies
             </p>
             <p
               class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600"
             >
-              We created a set of Components that are dynamic and come to help
-              you.
+              We created a set of questions, all tested end-to-end on environment
             </p>
             <div class="block pb-6">
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Alerts
+                Javascript
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Dropdowns
+                Python
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Menus
+                C++
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Modals
+                C#
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Navbars
+                Java
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Popovers
+                VueJs
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Tabs
+                React
               </span>
               <span
                 class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"
               >
-                Tooltips
+                Angular
               </span>
             </div>
             <a
-              href="https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vn-index"
+              href="#"
               target="_blank"
               class="font-bold text-blueGray-700 hover:text-blueGray-500 ease-linear transition-all duration-150"
             >
@@ -484,13 +464,10 @@
                 <i class="fas fa-file-alt text-xl"></i>
               </div>
               <h3 class="text-3xl font-semibold">
-                Complex Documentation
+                Complete Dashboard
               </h3>
               <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
-                This extension comes a lot of fully coded examples that help you
-                get started faster. You can adjust the colors and also the
-                programming language. You can change the text and images and
-                you're good to go.
+                Maintain all HR activities and realtime monitoring, all at one place. Not only it stores customized template but invites and review application automatically
               </p>
               <ul class="list-none mt-6">
                 <li class="py-2">
@@ -520,7 +497,7 @@
                     </div>
                     <div>
                       <h4 class="text-blueGray-500">
-                        Carefully crafted code for Components
+                        Carefully crafted code for Security
                       </h4>
                     </div>
                   </div>
@@ -536,7 +513,7 @@
                     </div>
                     <div>
                       <h4 class="text-blueGray-500">
-                        Dynamic Javascript Components
+                        Dynamic Application Components
                       </h4>
                     </div>
                   </div>
@@ -561,11 +538,9 @@
 
       <div class="justify-center text-center flex flex-wrap mt-24">
         <div class="w-full md:w-6/12 px-12 md:px-4">
-          <h2 class="font-semibold text-4xl">Beautiful Example Pages</h2>
+          <h2 class="font-semibold text-4xl">Product Snapshots</h2>
           <p class="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
-            Vue Notus is a completly new product built using our past experience
-            in web templates. Take the examples we made for you and start
-            playing with them.
+            100+ features bundled in single package accessible only from <b> $99 </b> onwards
           </p>
         </div>
       </div>
@@ -580,7 +555,7 @@
                 <h5 class="text-xl font-semibold pb-4 text-center">
                   Login Page
                 </h5>
-                <router-link to="/auth/login">
+                <router-link to="#">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -595,9 +570,9 @@
 
               <div class="w-full lg:w-4/12 px-4">
                 <h5 class="text-xl font-semibold pb-4 text-center">
-                  Profile Page
+                  Custom Questions
                 </h5>
-                <router-link to="/profile">
+                <router-link to="#">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -612,9 +587,9 @@
 
               <div class="w-full lg:w-4/12 px-4">
                 <h5 class="text-xl font-semibold pb-4 text-center">
-                  Landing Page
+                  Dashboard
                 </h5>
-                <router-link to="/landing">
+                <router-link to="#">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -642,35 +617,27 @@
               <i class="fas fa-code-branch text-xl"></i>
             </div>
             <h3 class="text-3xl mb-2 font-semibold leading-normal text-white">
-              Open Source
+              Open Source Forms
             </h3>
             <p
               class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-400"
             >
-              Since
+              Integrate
               <a
                 href="https://tailwindcss.com/?ref=creativetim"
                 class="text-blueGray-300"
                 target="_blank"
               >
-                Tailwind CSS
+                Custom Forms
               </a>
-              is an open source project we wanted to continue this movement too.
-              You can give this version a try to feel the design and also test
-              the quality of the code!
-            </p>
-            <p
-              class="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-400"
-            >
-              Get it free on Github and please help us spread the news with a
-              Star!
+              to our backend system directly from your websites which enables easy access to applicants to carry out job application
             </p>
             <a
               href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
               target="_blank"
               class="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
             >
-              Github Star
+              Get Started
             </a>
           </div>
 
@@ -703,46 +670,6 @@
           ></polygon>
         </svg>
       </div>
-
-      <div class="container mx-auto">
-        <div
-          class="flex flex-wrap justify-center bg-white shadow-xl rounded-lg -mt-64 py-16 px-12 relative z-10"
-        >
-          <div class="w-full text-center lg:w-8/12">
-            <p class="text-4xl text-center">
-              <span role="img" aria-label="love">
-                😍
-              </span>
-            </p>
-            <h3 class="font-semibold text-3xl">
-              Do you love this Starter Kit?
-            </h3>
-            <p class="text-blueGray-500 text-lg leading-relaxed mt-4 mb-4">
-              Cause if you do, it can be yours now. Hit the buttons below to
-              navigate to get the Free version for your next project. Build a
-              new web app or give an old project a new look!
-            </p>
-            <div class="sm:block flex flex-col mt-10">
-              <a
-                href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
-                target="_blank"
-                class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-emerald-500 active:bg-emerald-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-              >
-                Get started
-              </a>
-              <a
-                href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
-                target="_blank"
-                class="github-star sm:ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-              >
-                <i class="fab fa-github text-lg mr-1"></i>
-                <span>Help With a Star</span>
-              </a>
-            </div>
-            <div class="text-center mt-16"></div>
-          </div>
-        </div>
-      </div>
     </section>
     <footer-component />
   </div>
@@ -759,9 +686,9 @@ import componentInfo2 from "@/assets/img/component-info-2.png";
 import componentMenu from "@/assets/img/component-menu.png";
 import componentBtnPink from "@/assets/img/component-btn-pink.png";
 import documentation from "@/assets/img/documentation.png";
-import login from "@/assets/img/login.jpg";
-import profile from "@/assets/img/profile.jpg";
-import landing from "@/assets/img/landing.jpg";
+import login from "@/assets/img/p1.png";
+import profile from "@/assets/img/p2.png";
+import landing from "@/assets/img/p3.png";
 
 export default {
   data() {
