@@ -92,6 +92,11 @@ export default {
                   (currentTime.getTime() - loginTime.getTime()) / 1000
                 );
                 const testDuration = parseInt(assignment.time) * 60;
+                if((testDuration - seconds) < 0) {
+                  VueCookies.remove("fbb3em24")
+                  VueCookies.remove("fbb3cu24")
+                  this.$router.push({ path: "/" });
+                }
                 this.secondsLeft = secondsToHms(testDuration - seconds);
               }, 1000);
             }
@@ -99,6 +104,8 @@ export default {
           },
           (err) => {
             console.log(`Encountered error: ${err}`);
+            VueCookies.remove("fbb3em24")
+            VueCookies.remove("fbb3cu24")
             this.$router.push({ path: "/" });
           }
         );
