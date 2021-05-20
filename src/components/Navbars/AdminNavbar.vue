@@ -32,7 +32,7 @@
       </form> -->
       <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-        <user-dropdown />
+        <user-dropdown :candidateData="candidateData" />
       </ul>
     </div>
   </nav>
@@ -47,7 +47,8 @@ export default {
     UserDropdown,
   },
   props: {
-    seconds: String
+    seconds: String,
+    candidateData: Object
   }
 };
 </script>

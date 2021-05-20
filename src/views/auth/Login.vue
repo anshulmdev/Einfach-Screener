@@ -147,7 +147,19 @@
     <div
       class="flex content-center items-center justify-center h-full"
     >
-      <div v-if="!compnayExists" class="w-full lg:w-4/12 px-4">
+              
+    <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
+
+<div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+  <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+    top: 50%; left:50%
+">
+    <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </span>
+</div>
+      </div>
+      <div v-if="!companyData" class="w-full lg:w-4/12 px-4">
         <div
           class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
         >
@@ -159,6 +171,7 @@
             </div>
             <hr class="mt-6 border-b-1 border-blueGray-300" />
           </div></div></div></div></div>
+
   </div>
 </template>
 
@@ -171,11 +184,10 @@ export default {
   layout: "LoginLayout",
   data() {
     return {
-      companyData: "",
-      compnayExists: null,
+      companyData: null,
       candidateData: null,
       eligible: null,
-      loading: false,
+      loading: true,
       proceed: false,
       form: {
         email: "",
@@ -206,7 +218,7 @@ export default {
         "candidates.ongoing": firebase.firestore.FieldValue.arrayUnion(details),
       });
       this.$router.push({
-        path: "/admin/dashboard",
+        path: "/admin/ticket",
       });
       } catch (err) {
         alert(err.message)
@@ -232,6 +244,7 @@ export default {
       catch(err) {
         alert(err.message)
       }
+      this.loading = null
     },
     signup() {
       this.loading = true;
@@ -244,10 +257,10 @@ export default {
       });
       if (!this.eligible) {
         alert("Not Invited");
-        this.loading = false;
+        this.loading = null;
       } else {
         this.form.languages = Object.values(this.candidateData.tags);
-        this.loading = false;
+        this.loading = null;
         if (
           "mediaDevices" in navigator &&
           "getUserMedia" in navigator.mediaDevices
