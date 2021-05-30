@@ -11,9 +11,9 @@
         >
           <div class="rounded-t mb-0 px-6 py-6">
             <div class="text-center mb-3">
-              <h6 class="text-blueGray-500 text-sm font-bold">
+              <h3 class="text-black-500 text-xl font-bold">
                 {{ companyData.user.name }}
-              </h6>
+              </h3>
             </div>
             <hr class="mt-6 border-b-1 border-blueGray-300" />
           </div>
@@ -59,10 +59,22 @@
         <div
           class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
         >
-          <div class="rounded-t mb-0 px-6 py-6">
-            <div class="text-center mb-3">
-              <h3 class="text-blueGray-500 text-lg font-bold">Verification</h3>
+          <div class="rounded-t mb-0 px-6 py-6 flex">
+            <div class="text-left ml-2 mb-3 flex-1">
+              <h3 class="text-black-500 text-2xl font-bold">Verification</h3>
             </div>
+            <div class="text-center mb-3 flex-2">
+    <button @click="grantPermissions('audio')" :class="permissions.audio ? 'bg-emerald-500' : 'bg-yellow-500'" class="text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+      <span class="mr-2">Microphone</span>
+    </button></div>
+
+    <div class="text-center mb-3 flex-3 ml-3">
+    <button @click="grantPermissions('video')" :class="permissions.video ? 'bg-emerald-500' : 'bg-yellow-500'" class="text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+      <span class="mr-2">Camera</span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+    </button></div>
             <hr class="mt-6 border-b-1 border-blueGray-300" />
           </div>
           <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -188,7 +200,7 @@ export default {
       candidateData: null,
       eligible: null,
       loading: true,
-      proceed: false,
+      permissions: {video: false, audio: false},
       form: {
         email: "",
         languages: [],
@@ -196,8 +208,25 @@ export default {
     };
   },
   methods: {
+    async grantPermissions (value) {
+      if (value === 'audio'){
+          try {
+            const req = await navigator.mediaDevices.getUserMedia({ audio: true});
+            if (req) this.permissions.audio = true
+          } catch (err) {
+            alert(err)
+          }
+        } else {
+          try {
+            const req = await navigator.mediaDevices.getUserMedia({ video: true});
+            if (req) this.permissions.video = true
+          } catch (err) {
+            alert(err)
+          }
+        }
+    },
     async startTest() {
-      if (this.proceed === true) {
+      if (this.permissions.video && this.permissions.audio) {
       try {
       var cipherEmail = CryptoJS.AES.encrypt(this.candidateData.email,"736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString();
       var cipherUid = CryptoJS.AES.encrypt(this.$route.params.id,"736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString();
@@ -235,10 +264,10 @@ export default {
         .doc(this.$route.params.id)
         .get();
       if(snapshot.data()) {
-        this.compnayExists = true
+        this.companyExists = true
         this.companyData = snapshot.data();
       }else {
-        this.compnayExists = null
+        this.companyExists = null
       }
       }
       catch(err) {
@@ -261,19 +290,6 @@ export default {
       } else {
         this.form.languages = Object.values(this.candidateData.tags);
         this.loading = null;
-        if (
-          "mediaDevices" in navigator &&
-          "getUserMedia" in navigator.mediaDevices
-        ) {
-          try {
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            this.proceed = true
-          } catch (err) {
-            alert(err.message);
-          }
-        } else {
-          alert("Audio and Video are required");
-        }
       }
     },
   },
