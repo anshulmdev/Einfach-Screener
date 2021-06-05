@@ -25,6 +25,7 @@ import Tables from "@/views/admin/Tables.vue";
 
 import Login from "@/views/auth/Login.vue";
 import Register from "@/views/auth/Register.vue";
+import Apply from "@/views/auth/Apply.vue";
 
 // views without layouts
 
@@ -92,6 +93,10 @@ const routes = [
       {
         path: "/auth/login/:id",
         component: Login,
+      },
+      {
+        path: "/apply/:id",
+        component: Apply,
       },
       {
         path: "/auth/register",

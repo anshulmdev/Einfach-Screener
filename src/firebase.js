@@ -22,5 +22,5 @@ if (!firebase.apps.length) {
   // eslint-disable-next-line no-unused-vars
   app = firebase.initializeApp(firebaseConfig)
 }
-
+export const DB = firebase.database();
 export default firebase
