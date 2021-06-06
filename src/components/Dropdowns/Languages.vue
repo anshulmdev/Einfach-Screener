@@ -1,44 +1,8 @@
 <template>
-  <div>
-    <a
-      class="text-blueGray-500 block"
-      href="#pablo"
-      ref="btnDropdownRef"
-      v-on:click="toggleDropdown($event)"
-    >
-      <div class="items-center flex">
-        <span
-          class="w-10 h-10 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-        >
-          <img
-            alt="..."
-            class="w-full rounded-full align-middle border-none shadow-lg"
-            :src="image"
-          />
-        </span>
-      </div>
-    </a>
-    <div
-      ref="popoverDropdownRef"
-      class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-      v-bind:class="{
-        hidden: !dropdownPopoverShow,
-        block: dropdownPopoverShow,
-      }"
-    >
-      <a
-        href="#"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Javascript
-      </a>
-      <a
-        href="#"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Python
-      </a>
-    </div>
+  <div v-if="languages">
+    <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black">
+      <option v-for="item in languages" :key="item">{{item.name}}</option>
+    </select>
   </div>
 </template>
 
@@ -50,6 +14,8 @@ export default {
     return {
       dropdownPopoverShow: false,
       image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png',
+      languages: null,
+      languageSelected: 'JavaScript (Node.js 12.14.0)'
     };
   },
   methods: {
@@ -64,6 +30,13 @@ export default {
         });
       }
     },
+    async getLanguages () {
+      const req = await fetch('http://35.244.10.234/languages')
+      this.languages = await req.json()
+    }
   },
+  created() {
+    this.getLanguages()
+  }
 };
 </script>

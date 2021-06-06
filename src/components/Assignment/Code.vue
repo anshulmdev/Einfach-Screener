@@ -20,7 +20,11 @@
             <ul
               class="flex-col md:flex-row list-none items-center hidden md:flex pt-2"
             >
-              <Languages />
+                <div v-if="languages">
+    <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black">
+      <option v-for="item in languages" :key="item">{{item.name}}</option>
+    </select>
+  </div>
             </ul>
           </div>
         </div>
@@ -47,9 +51,10 @@
           >
             <prism-editor
               class="my-editor"
-              v-model="code"
+              v-model="assignTemplate[checkQues]"
               :highlight="highlighter"
               line-numbers
+              language="js"
             ></prism-editor>
           </div>
           <div class="pt-2">
@@ -61,7 +66,7 @@
                   <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
                     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                       <a
-                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
                         v-on:click="toggleTabs(1)"
                         v-bind:class="{
                           'text-pink-600 bg-white': openTab !== 1,
@@ -73,7 +78,7 @@
                     </li>
                     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                       <a
-                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
                         v-on:click="toggleTabs(2)"
                         v-bind:class="{
                           'text-pink-600 bg-white': openTab !== 2,
@@ -85,7 +90,7 @@
                     </li>
                     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                       <a
-                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+                        class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
                         v-on:click="toggleTabs(3)"
                         v-bind:class="{
                           'text-pink-600 bg-white': openTab !== 3,
@@ -108,7 +113,7 @@
                           }"
                         >
                           <textarea
-                            v-model="testCases"
+                            v-model="this.testTemplate[this.checkQues]"
                             type="text"
                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             rows="6"
@@ -120,9 +125,13 @@
                             block: openTab === 2,
                           }"
                         >
-                          <div class="console">
-                            {{ runResponse }}
-                          </div>
+                          <textarea
+                            v-model="runResponse"
+                            type="text"
+                            class="console w-full"
+                            rows="6"
+                            disabled
+                          />
                         </div>
                         <div
                           v-bind:class="{
@@ -188,7 +197,6 @@
 
 <script>
 import CodeSubmit from "@/components/Assignment/CodeSubmit.vue";
-import Languages from "@/components/Dropdowns/Languages.vue";
 import { PrismEditor } from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 
@@ -201,23 +209,32 @@ import "prismjs/themes/prism-tomorrow.css"; // import syntax highlighting styles
 import VueCookies from "vue-cookies";
 import firebase from "../../firebase";
 import CryptoJS from "crypto-js";
+import axios from "axios"
 
 export default {
   data() {
     return {
-      submitResponse: null,
+      submitResponse: [{time: 0, output: null}],
       currentQuestionIndex: 0,
       totalQuestion: 0,
-      testCases: "",
-      runResponse: "Loading...",
+      runResponse: `Loading...`,
       color: "dark",
       questions: null,
       openTab: 1,
       loading: null,
-      code: `// Test will check "finalFunction" only
-var finalFunction = function(nums) {
-  return nums;
-};`,
+      assignTemplate: {[`${this.category}063`]: 'console.log("Running")'},
+      testTemplate: {[`${this.category}063`]: '[1, 2, 3, 4]'},
+      code: {
+        71: `# Convert String to List: strip('][').split(',')
+# Function with name: finalFunction() will be evaluated only`,
+        63 : `console.log('Running')`
+      },
+      test: {
+        71: [1,2,3,4],
+        63 : [5,6,7,8]
+      },
+      languages: null,
+      languageSelected: 'JavaScript (Node.js 12.14.0)'
     };
   },
   props: {
@@ -226,52 +243,73 @@ var finalFunction = function(nums) {
   watch: {
     category() {
       this.checkAndFetch();
+      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.code[this.checkId]
+      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.test[this.checkId]
+    },
+    languageSelected () {
+      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.code[this.checkId]
+      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.test[this.checkId]
     },
   },
   methods: {
-    async submitCode(code, test, question, category) {
-      const database = { code, test, question, type: category };
-      try {
-        const req = await fetch(
-          "https://anshul9760.api.stdlib.com/assignmentcheck@dev/Code/codeSubmit/",
-          {
-            method: "post",
-            body: JSON.stringify(database),
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-          }
-        );
-        this.submitResponse = await req.json();
-      } catch (err) {
-        this.submitResponse = err.message;
+    // eslint-disable-next-line no-unused-vars
+    async submitCode(code, question, category) {
+      const answers = await axios.get(`https://hire-298805-default-rtdb.firebaseio.com/coding/${category}Answers.json`);
+      const testCases = answers.data[question]
+      const response = []
+      const testData = testCases.testCases.filter(Boolean)
+      for (let i in testData) {
+        const token = await this.getToken(code, testData[i])
+        setTimeout(async() => {
+          const ans = await axios.get(`http://35.244.10.234/submissions/${token}`)
+          const res = await ans.data
+          if (parseInt(res.stdout.split('\n')[0]) === testCases.answers[i]) response.push({time: res.time, output: true})
+          else response.push({time: res.time, output: false})
+          if (response.length === 3) this.submitResponse = response
+        }, 4000);
       }
       this.loading = null
     },
-    async runCode(code, test) {
-      const database = { code, test };
+    async getToken(code, test) {
+      // eslint-disable-next-line no-unused-vars
+      const reqBody = {
+        "source_code": code,
+        "language_id": this.checkId,
+        "number_of_runs": "1",
+        "stdin": test,
+        "expected_output": null,
+        "cpu_time_limit": "2",
+        "cpu_extra_time": "0.5",
+        "wall_time_limit": "5",
+        "memory_limit": "128000",
+        "stack_limit": "64000",
+        "max_processes_and_or_threads": "60",
+        "enable_per_process_and_thread_time_limit": false,
+        "enable_per_process_and_thread_memory_limit": false,
+        "max_file_size": "1024"
+}
       try {
-        const req = await fetch(
-          "https://anshul9760.api.stdlib.com/assignmentcheck@dev/Code/codeCheck/",
-          {
-            method: "post",
-            body: JSON.stringify(database),
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-          }
-        );
-        this.runResponse = await req.json();
+        const req = await axios.post("http://35.244.10.234/submissions/", reqBody);
+        const token = await req.data
+        return token.token
       } catch (err) {
-        this.runResponse = err.message;
+        return err.message;
       }
-      this.loading = null
+    },
+    async runSingleCode (){
+      const token =  await this.getToken(this.assignTemplate[this.checkQues], this.testTemplate[this.checkQues])
+      setTimeout(async () => {
+          const ans = await axios.get(`http://35.244.10.234/submissions/${token}`)
+          const res = await ans.data
+          if (res.stderr) this.runResponse = res.stderr
+          else this.runResponse = res.stdout
+        }, 1000);
     },
     async checkAndFetch() {
       this.openTab = 1
       this.currentQuestionIndex = 0;
       this.totalQuestion = 1;
       const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
-      this.code = `// Test will check "finalFunction" only
-var finalFunction = function(nums) {
-  return nums;
-};`
       const snapshotData = await firebase
         .firestore()
         .collection("accounts")
@@ -301,11 +339,12 @@ var finalFunction = function(nums) {
       this.openTab = tabNumber;
       if (tabNumber === 2) {
         this.loading = true
-        this.runCode(this.code, this.testCases);
+        this.runResponse = this.runSingleCode();
+        this.loading = null
       }
       if (tabNumber === 3) {
         this.loading = true
-        this.submitCode(this.code, this.testCases, Object.values(this.questions)[this.currentQuestionIndex].heading, this.category);
+        this.submitCode(this.assignTemplate[this.checkQues], Object.values(this.questions)[this.currentQuestionIndex].heading, this.category);
       }
     },
     highlighter(code) {
@@ -323,15 +362,29 @@ var finalFunction = function(nums) {
         this.currentQuestionIndex -= 1;
       }
     },
+    async getLanguages () {
+      const req = await fetch('http://35.244.10.234/languages')
+      const languages = await req.json()
+      this.languages = languages.filter((e) => e.name === 'Python (3.8.1)' || e.name === 'JavaScript (Node.js 12.14.0)')
+    }
   },
   components: {
     PrismEditor,
-    Languages,
     CodeSubmit,
+  },
+  computed: {
+    checkId () {
+      if (this.languages) return this.languages.filter((e) => e.name === this.languageSelected)[0].id
+      else return 63
+    },
+    checkQues () {
+      return `${this.category}${this.currentQuestionIndex}${this.checkId}`
+    }
   },
   created() {
     this.loading = true
     this.checkAndFetch();
+    this.getLanguages();
   },
 };
 </script>
@@ -359,7 +412,7 @@ var finalFunction = function(nums) {
   font-size: 14px;
   line-height: 1.5;
   padding: 4px;
-  min-height: 150px;
-  max-height: 150px;
+  min-height: 180px;
+  max-height: 180px;
 }
 </style>

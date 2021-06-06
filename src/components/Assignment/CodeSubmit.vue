@@ -29,8 +29,8 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="(item, index) in response" :key="index">
+        <tbody v-if="response[0].output">
+          <tr v-for="(item, index) in testCases" :key="index">
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
@@ -60,6 +60,25 @@
             </td>
           </tr>
         </tbody>
+        <tbody v-else>
+            <tr>
+            <th
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+            >
+              Test Case 0
+            </th>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              0 ms
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              Loading...
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <div v-else class="console">
@@ -80,7 +99,7 @@
               type="button"
               @click="finalSubmit"
             >
-              Final Submit
+              Submit Score
             </button>
           </ul>
         </div>
@@ -97,6 +116,16 @@ export default {
     response: Object,
     marks: Number,
     question: String
+  },
+  data () {
+    return {
+      testCases: this.response.slice(0,3)
+    }
+  },
+  watch: {
+    response () {
+      this.testCases = this.response.slice(0,3)
+    }
   },
   methods: {
     // eslint-disable-next-line no-unused-vars

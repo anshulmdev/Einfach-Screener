@@ -110,7 +110,7 @@
                 ]"
               >
                 <i class="mr-2 text-sm" :class="`fas fa-${item.icon}`"></i>
-                {{ item.name }}
+                {{ item.name }} {{index}}
               </a>
             </router-link>
           </li>
@@ -209,10 +209,10 @@ export default {
       const generalArray = [];
       categories.forEach((e) => {
         if (e === "array")
-          generalArray.push({ name: "Array", path: "array", icon: "code" });
+          generalArray.push({ name: "Question Set", path: "array", icon: "code" });
         if (e === "dp")
           generalArray.push({
-            name: "Dynamic Programming",
+            name: "Question Set",
             path: "dp",
             icon: "code",
           });
