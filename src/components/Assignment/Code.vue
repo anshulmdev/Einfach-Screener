@@ -222,16 +222,45 @@ export default {
       questions: null,
       openTab: 1,
       loading: null,
-      assignTemplate: {[`${this.category}063`]: 'console.log("Running")'},
+      assignTemplate: {[`${this.category}063`]: `process.stdin.once('data', (chunk) => { 
+
+yourInput = chunk.toString()
+
+// WRITE YOUR CODE HERE
+
+var yourFunction = function(nums) {
+    nums = JSON.parse(nums)
+    return nums
+};
+console.log(yourFunction(yourInput ))
+
+} )`},
       testTemplate: {[`${this.category}063`]: '[1, 2, 3, 4]'},
       code: {
-        71: `# Convert String to List: strip('][').split(',')
-# Function with name: finalFunction() will be evaluated only`,
-        63 : `console.log('Running')`
+        71: `testCase = input().strip('][').split(',')
+
+def yourFunction (nums):
+    return nums
+    
+    
+print(yourFunction(testCase))`,
+        63 : `process.stdin.once('data', (chunk) => { 
+
+yourInput = chunk.toString()
+
+// WRITE YOUR CODE HERE
+
+var yourFunction = function(nums) {
+    nums = JSON.parse(nums)
+    return nums
+};
+console.log(yourFunction(yourInput ))
+
+} )`
       },
       test: {
-        71: [1,2,3,4],
-        63 : [5,6,7,8]
+        71: '[1,2,3,4]',
+        63 : '[5,6,7,8]'
       },
       languages: null,
       languageSelected: 'JavaScript (Node.js 12.14.0)'
@@ -336,10 +365,11 @@ export default {
       this.loading = null
     },
     toggleTabs: function (tabNumber) {
+      this.runResponse = `Loading...`
       this.openTab = tabNumber;
       if (tabNumber === 2) {
         this.loading = true
-        this.runResponse = this.runSingleCode();
+        this.runSingleCode();
         this.loading = null
       }
       if (tabNumber === 3) {
