@@ -7,11 +7,13 @@
       <div class="container mx-auto items-center flex flex-wrap">
         <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
           <div class="pt-32 sm:pt-0">
-            <h2 class="font-semibold text-4xl text-blueGray-600">
-              Einfach Tech
-            </h2>
+            <div class="flex">
+            <img src="@/assets/img/logo.png" width="40" class="mr-3" />
+            <h2 class="ml-4 font-semibold text-4xl text-blueGray-600">
+              Einfach
+            </h2></div>
             <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
-              Einfach Tech is a complete hiring package that helps you recruit tech teams with ease. Complete architecture to host, deploy, manage tech hiring
+              Einfach is a complete hiring package that helps you recruit tech teams with ease. Complete architecture to host, deploy, manage tech hiring
             </p>
             <div class="mt-12">
               <a

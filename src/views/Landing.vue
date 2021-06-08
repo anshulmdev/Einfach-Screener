@@ -25,7 +25,7 @@
                 </h1>
                 <p class="mt-4 text-lg text-blueGray-200">
                   This is a simple example of a Landing Page you can build using
-                  Einfach Tech. It features multiple CSS components based on the
+                  Einfach. It features multiple CSS components based on the
                   Tailwind CSS design system.
                 </p>
               </div>
@@ -139,7 +139,7 @@
                 go. Just make sure you enable them first via JavaScript.
               </p>
               <router-link to="/" class="font-bold text-blueGray-700 mt-8">
-                Check Einfach Tech!
+                Check Einfach!
               </router-link>
             </div>
 

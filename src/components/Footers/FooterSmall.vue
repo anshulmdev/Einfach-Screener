@@ -24,7 +24,7 @@
                 href="#"
                 class="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
               >
-                Einfach Tech
+                Einfach
               </a>
             </li>
           </ul>
