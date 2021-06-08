@@ -31,7 +31,7 @@ export default {
       }
     },
     async getLanguages () {
-      const req = await fetch('http://35.244.10.234/languages')
+      const req = await fetch('http://35.200.211.180/languages')
       this.languages = await req.json()
     }
   },
