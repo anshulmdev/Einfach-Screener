@@ -290,7 +290,7 @@ console.log(yourFunction(yourInput ))
       for (let i in testData) {
         const token = await this.getToken(code, testData[i])
         setTimeout(async() => {
-          const ans = await axios.get(`http://35.200.211.180/submissions/${token}`)
+          const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
           const res = await ans.data
           if (parseInt(res.stdout.split('\n')[0]) === testCases.answers[i]) response.push({time: res.time, output: true})
           else response.push({time: res.time, output: false})
@@ -318,7 +318,7 @@ console.log(yourFunction(yourInput ))
         "max_file_size": "1024"
 }
       try {
-        const req = await axios.post("http://35.200.211.180/submissions/", reqBody);
+        const req = await axios.post("https://api.einfach.in/submissions/", reqBody);
         const token = await req.data
         return token.token
       } catch (err) {
@@ -328,7 +328,7 @@ console.log(yourFunction(yourInput ))
     async runSingleCode (){
       const token =  await this.getToken(this.assignTemplate[this.checkQues], this.testTemplate[this.checkQues])
       setTimeout(async () => {
-          const ans = await axios.get(`http://35.200.211.180/submissions/${token}`)
+          const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
           const res = await ans.data
           if (res.stderr) this.runResponse = res.stderr
           else this.runResponse = res.stdout
@@ -393,7 +393,7 @@ console.log(yourFunction(yourInput ))
       }
     },
     async getLanguages () {
-      const req = await fetch('http://35.200.211.180/languages')
+      const req = await fetch('https://api.einfach.in/languages')
       const languages = await req.json()
       this.languages = languages.filter((e) => e.name === 'Python (3.8.1)' || e.name === 'JavaScript (Node.js 12.14.0)')
     }
