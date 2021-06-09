@@ -31,7 +31,7 @@ export default {
       }
     },
     async getLanguages () {
-      const req = await fetch('http://35.200.211.180/languages')
+      const req = await fetch('https://api.einfach.in/languages')
       this.languages = await req.json()
     }
   },
