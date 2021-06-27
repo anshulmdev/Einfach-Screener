@@ -205,7 +205,7 @@ export default {
     async submit() {
       const database = this.questions;
       const req = await fetch(
-        "https://anshul9760.api.stdlib.com/assignmentcheck@dev/Rest/restCheck/",
+        "https://einfach.api.stdlib.com/application@dev/Rest/restSubmit/",
         {
           method: "post",
           body: JSON.stringify(database),

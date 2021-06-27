@@ -212,7 +212,7 @@ export default {
     async submit() {
       const database = this.questions;
       const req = await fetch(
-        "https://anshul9760.api.stdlib.com/assignmentcheck@dev/Regex/regexTest/",
+        "https://einfach.api.stdlib.com/application@dev/Regex/regexSubmit/",
         {
           method: "post",
           body: JSON.stringify(database),
