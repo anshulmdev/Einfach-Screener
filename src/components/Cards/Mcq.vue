@@ -189,7 +189,7 @@ export default {
     async submit() {
       const database = this.questions;
       const req = await fetch(
-        "https://hire-298805-default-rtdb.firebaseio.com/mcqAnswers.json",
+        "https://einfach.api.stdlib.com/application@dev/MCQ/mcqSubmit/",
         {
           method: "post",
           body: JSON.stringify(database),
