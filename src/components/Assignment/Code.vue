@@ -139,7 +139,7 @@
                             block: openTab === 3,
                           }"
                         >
-                          <CodeSubmit v-if="submitResponse" :question="Object.values(questions)[currentQuestionIndex].heading" :response="submitResponse" :marks="parseInt(Object.values(questions)[currentQuestionIndex].marks)" />
+                          <CodeSubmit v-if="submitResponse" :question="Object.values(questions)[currentQuestionIndex].heading" :description="Object.values(questions)[currentQuestionIndex].description" :code="this.assignTemplate[this.checkQues]" :response="submitResponse" :marks="parseInt(Object.values(questions)[currentQuestionIndex].marks)" />
                         </div>
                       </div>
                     </div>

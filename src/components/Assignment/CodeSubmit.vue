@@ -115,7 +115,9 @@ export default {
   props: {
     response: Object,
     marks: Number,
-    question: String
+    question: String,
+    code: String,
+    description: String
   },
   data () {
     return {
@@ -136,10 +138,10 @@ export default {
       const res = await req.get()
       const response = res.data()[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)]
       if (response.coding) {
-        response.coding[this.question] = score
+        response.coding[this.question] = {score, question: this.question, code: this.code, description: this.description}
       } else{
         response.coding = {}
-        response.coding[this.question] = score
+        response.coding[this.question] = {score, question: this.question, code: this.code, description: this.description}
       }
       details[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)] = response
       await firebase.firestore().collection("scores").doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)).set(details, {merge: true});
