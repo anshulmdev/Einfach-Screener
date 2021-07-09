@@ -252,7 +252,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const url = await imageRef.put(this.form.resume);
         var resume = await imageRef.getDownloadURL();
-        const details = { email, experience, name: `${fname} ${lname}`, phone, resume, tags: {[areaLabel[area]]: area} };
+        const details = { email, experience, name: `${fname} ${lname}`, phone, resume, tags: {[areaLabel[area]]: area}, time: String(new Date()) };
         const actualPath = await firebase.firestore().collection("accounts").doc(this.$route.params.id);
         // eslint-disable-next-line no-unused-vars
         const res = await actualPath.update({"candidates.applied": firebase.firestore.FieldValue.arrayUnion(details),});
