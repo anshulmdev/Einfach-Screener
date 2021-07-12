@@ -2,9 +2,9 @@
   <div>
     <div v-if="formData" class="container mx-auto px-4 h-full">
       <div class="flex content-center items-center justify-center h-full">
-        <div class="w-8/12 px-4">
+        <div class="px-4 w-10/12">
           <div
-            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent  border-2 border-purple-300"
+            class="p-4 relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent  border-2 border-purple-300"
           >
         
             <div class="rounded-t mb-0 px-4 py-4">
