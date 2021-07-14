@@ -61,11 +61,11 @@
           </tr>
         </tbody>
         <tbody v-else>
-            <tr>
+            <tr v-for="(item, index) in [1,2,3]" :key="index">
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
-              Test Case 0
+              Test Case {{index}}
             </th>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -75,7 +75,9 @@
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              Loading...
+              <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-red-600 bg-red-200 uppercase last:mr-0 mr-1">
+                {{status}}
+              </span>
             </td>
           </tr>
         </tbody>
@@ -117,11 +119,12 @@ export default {
     marks: Number,
     question: String,
     code: String,
-    description: String
+    description: String,
+    status: String
   },
   data () {
     return {
-      testCases: this.response.slice(0,3)
+      testCases: this.response.slice(0,3),
     }
   },
   watch: {
@@ -156,7 +159,7 @@ export default {
         this.submit(0)
       }
     }
-  }
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="questions" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
+    <div v-if="questions && !loading" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
           <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -12,28 +12,24 @@
       </div>
       <div class="block w-full overflow-x-auto">
         <!-- Projects table -->
-        <table class="items-center w-full bg-transparent border-collapse">
+        <table class="table-fixed items-center w-full bg-transparent border-collapse">
           <thead>
             <tr>
-              <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Question</th>
-              <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Marks</th>
-              <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Completion</th>
-              <th class="px-6 align-right border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-right" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Select Correct Answer</th>
+              <th class="w-6/12 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Question</th>
+              <th class="w-1/12 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Marks</th>
+              <th class="w-1/12 px-6 align-left border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Completion</th>
+              <th class="w-4/12 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left" :class="[color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-emerald-800 text-emerald-300 border-emerald-700']">Answer</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item, index) in questions" :key="index">
-              <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                <img @click="showQues(index)" src="https://icons-for-free.com/iconfiles/png/512/sight+view+icon-1320166581980344025.png" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-                <div v-if="popoverShow[index] === true" class="bg-lightBlue-400 border-0 mr-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                  <div>
-                    <div class="text-white p-3">
-                      {{ item.heading }}
-                    </div>
-                  </div>
+              <th class="border-t-0 pr-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left flex items-center">
+                <div class="container mx-auto">
+                <span class="pr-2">
+                <i class="mr-2 text-sm fas fa-globe"></i> {{ item.heading }}</span>
                 </div>
               </th>
-              <td class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap">{{ item.marks }} marks</td>
+              <td class="border-t-0 align-right border-l-0 border-r-0 text-xs whitespace-nowrap">{{ item.marks }} marks</td>
               <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 <div class="flex items-center">
                   <span class="mr-2">{{ item.selected ? 100 : 0 }} %</span>
@@ -44,7 +40,7 @@
                   </div>
                 </div>
               </td>
-              <td class="border-t-0 px-8 align-right border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+              <td class="border-t-0 px-8 align-right border-l-0 border-r-0 text-xs p-4 text-right">
                 <select v-model="questions[index].selected" class="border border-gray-300 rounded-sm text-gray-600 h-10 pl-3 pr-8 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                   <option value="">Choose Answer</option>
                   <option v-for="(option, index) in item.options" :key="index">
@@ -57,7 +53,7 @@
         </table>
       </div>
     </div>
-    <div v-if="questions" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
+    <div v-if="questions && !loading" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
           <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -69,8 +65,8 @@
     <div v-if="loading">
       <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous" />
 
-      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
-        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="top: 50%; left: 50%">
+      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50"  style="top: 50%; left: 50%">
+        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0">
           <i class="fas fa-circle-notch fa-spin fa-5x"></i>
         </span>
       </div>
@@ -89,7 +85,6 @@ export default {
       questions: null,
       loading: null,
       currentQuestion: "Multiple Choice Questions",
-      popoverShow: {},
     }
   },
   props: {
@@ -102,11 +97,8 @@ export default {
     },
   },
   methods: {
-    showQues(value) {
-      if (!this.popoverShow[value] || this.popoverShow[value] === false) this.popoverShow[value] = true
-      else this.popoverShow[value] = false
-    },
     async submit() {
+      this.loading = true
       const database = this.questions
       const req = await fetch("https://einfach.api.stdlib.com/application@dev/MCQ/mcqSubmit/", {
         method: "post",
@@ -122,6 +114,7 @@ export default {
         .collection("scores")
         .doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8))
         .set(details, { merge: true })
+      this.loading = null
     },
     async fetchRTDB() {
       if (CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8) && CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)) {

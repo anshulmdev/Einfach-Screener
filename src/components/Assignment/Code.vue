@@ -1,66 +1,35 @@
 <template>
   <div>
-    <div
-      v-if="questions"
-      class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
-      :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']"
-    >
+    <div v-if="questions" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
-          <div
-            class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
-          >
-            <h3
-              class="font-semibold text-lg"
-              :class="[color === 'light' ? 'text-black-700' : 'text-white']"
-            >
+          <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:pr-10 px-4">
+            <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-black-700' : 'text-white']">
               Questions: {{ currentQuestionIndex + 1 }} :
               {{ Object.values(questions)[currentQuestionIndex].heading }}
             </h3>
-            <ul
-              class="flex-col md:flex-row list-none items-center hidden md:flex pt-2"
-            >
-                <div v-if="languages">
-    <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black">
-      <option v-for="item in languages" :key="item">{{item.name}}</option>
-    </select>
-  </div>
+            <ul class="flex-col md:flex-row list-none items-center hidden md:flex pt-2">
+              <div v-if="languages">
+                <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black">
+                  <option v-for="item in languages" :key="item">{{ item.name }}</option>
+                </select>
+              </div>
             </ul>
           </div>
         </div>
       </div>
-      <div
-        class="flex content-center flex-wrap -mx-2 p-3 bg-grey rounded shadow-lg"
-      >
+      <div class="flex content-center flex-wrap mx-2 p-3 bg-grey rounded shadow-lg">
         <div class="flex w-1/2 px-2 py-2">
-          <div
-            class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark"
-          >
-            <div
-              v-html="
-                Object.values(questions)[currentQuestionIndex].description
-              "
-              id="app"
-              class="text-black"
-            />
+          <div class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark">
+            <div class="customHeight overflow-auto" v-html="Object.values(questions)[currentQuestionIndex].description" id="app" />
           </div>
         </div>
         <div class="flex-grow w-1/2 px-2 py-2">
-          <div
-            class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark"
-          >
-            <prism-editor
-              class="my-editor"
-              v-model="assignTemplate[checkQues]"
-              :highlight="highlighter"
-              line-numbers
-              language="js"
-            ></prism-editor>
+          <div class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark">
+            <prism-editor class="my-editor" v-model="assignTemplate[checkQues]" :highlight="highlighter" line-numbers language="js"></prism-editor>
           </div>
           <div class="pt-2">
-            <div
-              class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark"
-            >
+            <div class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark">
               <div class="flex flex-wrap">
                 <div class="w-full">
                   <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
@@ -101,9 +70,7 @@
                       </a>
                     </li>
                   </ul>
-                  <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-                  >
+                  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div class="px-4 py-5 flex-auto">
                       <div class="tab-content tab-space">
                         <div
@@ -112,12 +79,7 @@
                             block: openTab === 1,
                           }"
                         >
-                          <textarea
-                            v-model="this.testTemplate[this.checkQues]"
-                            type="text"
-                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            rows="6"
-                          />
+                          <textarea v-model="this.testTemplate[this.checkQues]" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="6" />
                         </div>
                         <div
                           v-bind:class="{
@@ -125,13 +87,7 @@
                             block: openTab === 2,
                           }"
                         >
-                          <textarea
-                            v-model="runResponse"
-                            type="text"
-                            class="console w-full"
-                            rows="6"
-                            disabled
-                          />
+                          <textarea v-model="runResponse" type="text" class="console w-full" rows="6" disabled />
                         </div>
                         <div
                           v-bind:class="{
@@ -139,7 +95,7 @@
                             block: openTab === 3,
                           }"
                         >
-                          <CodeSubmit v-if="submitResponse" :question="Object.values(questions)[currentQuestionIndex].heading" :description="Object.values(questions)[currentQuestionIndex].description" :code="this.assignTemplate[this.checkQues]" :response="submitResponse" :marks="parseInt(Object.values(questions)[currentQuestionIndex].marks)" />
+                          <CodeSubmit v-if="submitResponse" :status="status" :question="Object.values(questions)[currentQuestionIndex].heading" :description="Object.values(questions)[currentQuestionIndex].description" :code="this.assignTemplate[this.checkQues]" :response="submitResponse" :marks="parseInt(Object.values(questions)[currentQuestionIndex].marks)" />
                         </div>
                       </div>
                     </div>
@@ -152,69 +108,50 @@
       </div>
     </div>
 
-    <div
-      class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
-      :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']"
-    >
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
           <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-            <button
-              class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-              @click="back"
-            >
-              Previous
-            </button>
+            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button" @click="back">Previous</button>
           </div>
-          <ul
-            class="flex-col md:flex-row list-none items-center hidden md:flex"
-          >
-            <button
-              class="bg-emerald-600 text-white active:bg-emerald-800 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-              @click="next"
-            >
-              Next
-            </button>
+          <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+            <button class="bg-emerald-600 text-white active:bg-emerald-800 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button" @click="next">Next</button>
           </ul>
         </div>
       </div>
     </div>
     <div v-if="loading">
-      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous" />
 
-<div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
-  <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
-    top: 50%; left:50%
-">
-    <i class="fas fa-circle-notch fa-spin fa-5x"></i>
-  </span>
-</div>
+      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="top: 50%; left: 50%">
+          <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+        </span>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
-import CodeSubmit from "@/components/Assignment/CodeSubmit.vue";
-import { PrismEditor } from "vue-prism-editor";
-import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
+import CodeSubmit from "@/components/Assignment/CodeSubmit.vue"
+import { PrismEditor } from "vue-prism-editor"
+import "vue-prism-editor/dist/prismeditor.min.css" // import the styles somewhere
 
 // import highlighting library (you can use any library you want just return html string)
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
-import "prismjs/themes/prism-tomorrow.css"; // import syntax highlighting styles
+import { highlight, languages } from "prismjs/components/prism-core"
+import "prismjs/components/prism-clike"
+import "prismjs/components/prism-javascript"
+import "prismjs/themes/prism-tomorrow.css" // import syntax highlighting styles
 
-import VueCookies from "vue-cookies";
-import firebase from "../../firebase";
-import CryptoJS from "crypto-js";
+import VueCookies from "vue-cookies"
+import firebase from "../../firebase"
+import CryptoJS from "crypto-js"
 import axios from "axios"
 
 export default {
   data() {
     return {
-      submitResponse: [{time: 0, output: null}],
+      submitResponse: [{ time: 0, output: null }],
       currentQuestionIndex: 0,
       totalQuestion: 0,
       runResponse: `Loading...`,
@@ -222,7 +159,9 @@ export default {
       questions: null,
       openTab: 1,
       loading: null,
-      assignTemplate: {[`${this.category}063`]: `process.stdin.once('data', (chunk) => { 
+      status: 'Loading...',
+      assignTemplate: {
+        [`${this.category}063`]: `process.stdin.once('data', (chunk) => { 
 
 yourInput = chunk.toString()
 
@@ -234,8 +173,9 @@ var yourFunction = function(nums) {
 };
 console.log(yourFunction(yourInput ))
 
-} )`},
-      testTemplate: {[`${this.category}063`]: '[1, 2, 3, 4]'},
+} )`,
+      },
+      testTemplate: { [`${this.category}063`]: "[1, 2, 3, 4]" },
       code: {
         71: `testCase = input().strip('][').split(',')
 
@@ -244,7 +184,7 @@ def yourFunction (nums):
     
     
 print(yourFunction(testCase))`,
-        63 : `process.stdin.once('data', (chunk) => { 
+        63: `process.stdin.once('data', (chunk) => { 
 
 yourInput = chunk.toString()
 
@@ -256,167 +196,165 @@ var yourFunction = function(nums) {
 };
 console.log(yourFunction(yourInput ))
 
-} )`
+} )`,
       },
       test: {
-        71: '[1,2,3,4]',
-        63 : '[5,6,7,8]'
+        71: "[1,2,3,4]",
+        63: "[5,6,7,8]",
       },
       languages: null,
-      languageSelected: 'JavaScript (Node.js 12.14.0)'
-    };
+      languageSelected: "JavaScript (Node.js 12.14.0)",
+    }
   },
   props: {
     category: String,
   },
   watch: {
     category() {
-      this.checkAndFetch();
-      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.code[this.checkId]
-      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.test[this.checkId]
+      this.checkAndFetch()
+      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`] = this.code[this.checkId]
+      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`] = this.test[this.checkId]
     },
-    languageSelected () {
-      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.code[this.checkId]
-      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]= this.test[this.checkId]
+    languageSelected() {
+      if (!this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.assignTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`] = this.code[this.checkId]
+      if (!this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`]) this.testTemplate[`${this.category}${this.currentQuestionIndex}${this.checkId}`] = this.test[this.checkId]
     },
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
     async submitCode(code, question, category) {
-      const answers = await axios.get(`https://hire-298805-default-rtdb.firebaseio.com/coding/${category}Answers.json`);
+      const answers = await axios.get(`https://hire-298805-default-rtdb.firebaseio.com/coding/${category}Answers.json`)
       const testCases = answers.data[question]
       const response = []
       const testData = testCases.testCases.filter(Boolean)
       for (let i in testData) {
         const token = await this.getToken(code, testData[i])
-        setTimeout(async() => {
+        setTimeout(async () => {
           const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
           const res = await ans.data
-          if (parseInt(res.stdout.split('\n')[0]) === testCases.answers[i]) response.push({time: res.time, output: true})
-          else response.push({time: res.time, output: false})
+          if (parseInt(res.stdout.split("\n")[0]) === testCases.answers[i]) response.push({ time: res.time, output: true })
+          else response.push({ time: res.time, output: false })
           if (response.length === 3) this.submitResponse = response
-        }, 4000);
+        }, 4000)
       }
       this.loading = null
+      setTimeout(() => {
+        this.status = 'Failed'
+      }, 10000);
     },
     async getToken(code, test) {
       // eslint-disable-next-line no-unused-vars
       const reqBody = {
-        "source_code": code,
-        "language_id": this.checkId,
-        "number_of_runs": "1",
-        "stdin": test,
-        "expected_output": null,
-        "cpu_time_limit": "2",
-        "cpu_extra_time": "0.5",
-        "wall_time_limit": "5",
-        "memory_limit": "128000",
-        "stack_limit": "64000",
-        "max_processes_and_or_threads": "60",
-        "enable_per_process_and_thread_time_limit": false,
-        "enable_per_process_and_thread_memory_limit": false,
-        "max_file_size": "1024"
-}
+        source_code: code,
+        language_id: this.checkId,
+        number_of_runs: "1",
+        stdin: test,
+        expected_output: null,
+        cpu_time_limit: "2",
+        cpu_extra_time: "0.5",
+        wall_time_limit: "5",
+        memory_limit: "128000",
+        stack_limit: "64000",
+        max_processes_and_or_threads: "60",
+        enable_per_process_and_thread_time_limit: false,
+        enable_per_process_and_thread_memory_limit: false,
+        max_file_size: "1024",
+      }
       try {
-        const req = await axios.post("https://api.einfach.in/submissions/", reqBody);
+        const req = await axios.post("https://api.einfach.in/submissions/", reqBody)
         const token = await req.data
         return token.token
       } catch (err) {
-        return err.message;
+        return err.message
       }
     },
-    async runSingleCode (){
-      const token =  await this.getToken(this.assignTemplate[this.checkQues], this.testTemplate[this.checkQues])
+    async runSingleCode() {
+      const token = await this.getToken(this.assignTemplate[this.checkQues], this.testTemplate[this.checkQues])
       setTimeout(async () => {
-          const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
-          const res = await ans.data
-          if (res.stderr) this.runResponse = res.stderr
-          else this.runResponse = res.stdout
-        }, 1000);
+        const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
+        const res = await ans.data
+        if (res.stderr) this.runResponse = res.stderr
+        else this.runResponse = res.stdout
+      }, 1000)
     },
     async checkAndFetch() {
       this.openTab = 1
-      this.currentQuestionIndex = 0;
-      this.totalQuestion = 1;
-      const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8);
-      const snapshotData = await firebase
-        .firestore()
-        .collection("accounts")
-        .doc(companyUid)
-        .get();
-      const req = snapshotData.data().assignment.tags;
+      this.currentQuestionIndex = 0
+      this.totalQuestion = 1
+      const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)
+      const snapshotData = await firebase.firestore().collection("accounts").doc(companyUid).get()
+      const req = snapshotData.data().assignment.tags
       if (req[this.category]) {
-        const codingIndex = snapshotData.data().assignment.tags[this.category];
-        const reqDatabase = await firebase
-          .database()
-          .ref(`coding/${this.category}`)
-          .get();
-        const codeDatabase = await reqDatabase.val();
-        const finalSet = {};
+        const codingIndex = snapshotData.data().assignment.tags[this.category]
+        const reqDatabase = await firebase.database().ref(`coding/${this.category}`).get()
+        const codeDatabase = await reqDatabase.val()
+        const finalSet = {}
         codingIndex.forEach((e) => {
-          finalSet[e.index] = codeDatabase[e.index];
-          finalSet[e.index].selected = "";
-        });
-        this.questions = finalSet;
-        this.totalQuestion = Object.keys(finalSet).length;
+          finalSet[e.index] = codeDatabase[e.index]
+          finalSet[e.index].selected = ""
+        })
+        this.questions = finalSet
+        this.totalQuestion = Object.keys(finalSet).length
       } else {
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/" })
       }
       this.loading = null
     },
     toggleTabs: function (tabNumber) {
+      this.submitResponse = [{ time: 0, output: null }]
+      this.status = 'Loading...'
       this.runResponse = `Loading...`
-      this.openTab = tabNumber;
+      this.openTab = tabNumber
       if (tabNumber === 2) {
         this.loading = true
-        this.runSingleCode();
+        this.runSingleCode()
         this.loading = null
       }
       if (tabNumber === 3) {
         this.loading = true
-        this.submitCode(this.assignTemplate[this.checkQues], Object.values(this.questions)[this.currentQuestionIndex].heading, this.category);
+        this.submitCode(this.assignTemplate[this.checkQues], Object.values(this.questions)[this.currentQuestionIndex].heading, this.category)
       }
     },
     highlighter(code) {
-      return highlight(code, languages.js); // languages.<insert language> to return html with markup
+      return highlight(code, languages.js) // languages.<insert language> to return html with markup
     },
     next() {
       if (this.currentQuestionIndex < this.totalQuestion) {
         this.openTab = 1
-        this.currentQuestionIndex += 1;
+        this.currentQuestionIndex += 1
       }
     },
     back() {
       if (this.currentQuestionIndex > 0) {
         this.openTab = 1
-        this.currentQuestionIndex -= 1;
+        this.currentQuestionIndex -= 1
       }
     },
-    async getLanguages () {
-      const req = await fetch('https://api.einfach.in/languages')
+    async getLanguages() {
+      const req = await fetch("https://api.einfach.in/languages")
       const languages = await req.json()
-      this.languages = languages.filter((e) => e.name === 'Python (3.8.1)' || e.name === 'JavaScript (Node.js 12.14.0)')
-    }
+      this.languages = languages.filter((e) => e.name === "Python (3.8.1)" || e.name === "JavaScript (Node.js 12.14.0)")
+    },
   },
   components: {
     PrismEditor,
     CodeSubmit,
   },
   computed: {
-    checkId () {
+    checkId() {
       if (this.languages) return this.languages.filter((e) => e.name === this.languageSelected)[0].id
       else return 63
     },
-    checkQues () {
+    checkQues() {
       return `${this.category}${this.currentQuestionIndex}${this.checkId}`
-    }
+    },
   },
   created() {
     this.loading = true
-    this.checkAndFetch();
-    this.getLanguages();
+    this.checkAndFetch()
+    this.getLanguages()
   },
-};
+}
 </script>
 
 <style>
@@ -427,8 +365,12 @@ console.log(yourFunction(yourInput ))
   font-size: 14px;
   line-height: 1.5;
   padding: 2px;
-  min-height: 350px;
-  max-height: 350px;
+  min-height: 420px;
+  max-height: 420px;
+}
+.customHeight {
+  min-height: 750px;
+  max-height: 750px;
 }
 
 /* optional class for removing the outline */
@@ -442,7 +384,7 @@ console.log(yourFunction(yourInput ))
   font-size: 14px;
   line-height: 1.5;
   padding: 4px;
-  min-height: 180px;
-  max-height: 180px;
+  min-height: 150px;
+  max-height: 150px;
 }
 </style>
