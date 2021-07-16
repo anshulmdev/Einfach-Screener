@@ -369,8 +369,8 @@ console.log(yourFunction(yourInput ))
   max-height: 420px;
 }
 .customHeight {
-  min-height: 750px;
-  max-height: 750px;
+  min-height: 730px;
+  max-height: 730px;
 }
 
 /* optional class for removing the outline */

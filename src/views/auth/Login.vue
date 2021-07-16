@@ -142,7 +142,7 @@ export default {
       }
     },
     async startTest() {
-      if (!this.permissions.video && !this.permissions.audio) {
+      if (this.permissions.video && this.permissions.audio) {
         try {
           var cipherEmail = CryptoJS.AES.encrypt(this.candidateData.email, "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString()
           var cipherUid = CryptoJS.AES.encrypt(this.$route.params.id, "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString()
