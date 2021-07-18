@@ -126,7 +126,9 @@ export default {
       let score = 0
       Object.keys(scoreInfo).forEach((e) => {
         if (e === "coding") {
-          score += Object.values(scoreInfo[e]).reduce((a, b) => a + b, 0)
+          Object.values(scoreInfo[e]).forEach((e)=>{
+            score += e.score
+          })
         } else {
           score += scoreInfo[e].score
         }
