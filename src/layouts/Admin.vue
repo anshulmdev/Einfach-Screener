@@ -85,7 +85,7 @@ export default {
             if (!ongoingValid) {
               this.$router.push({ path: "/" });
             } else {
-              setInterval(() => {
+              setInterval(async () => {
                 const loginTime = new Date(candidateData.timeStamp);
                 const currentTime = new Date();
                 const seconds = parseInt(
@@ -98,6 +98,12 @@ export default {
                   this.$router.push({ path: "/" });
                 }
                 this.secondsLeft = secondsToHms(testDuration - seconds);
+                try {
+                  await navigator.mediaDevices.getUserMedia({ video: true })
+                  await navigator.mediaDevices.getUserMedia({ audio: true })
+                } catch (err) {
+                  alert ('Permission Revoked')
+                }
               }, 1000);
             }
             // ...
