@@ -111,6 +111,15 @@
     </div>
       </div>
     </div>
+    <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous" />
+
+      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50"  style="top: 50%; left: 50%">
+        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0">
+          <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -127,18 +136,21 @@ export default {
         company: null,
         email: null,
         query: null
-      }
+      },
+      loading: null
     }
   },
   methods: {
     async submit () {
+      this.loading = true
       if (Object.values(this.form).filter(Boolean).length === 5){
         const entry = await firebase.firestore().collection("accounts").doc(CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8));
-        const details = {time: new Date(), icon: 'fa fa-fw fa-check-circle text-success', title: this.form.query.slice(0,25)}
+        const details = {time: new Date(), icon: 'fa fa-bug text-danger', title: 'Bug Reported', desc: this.form.query, email: this.form.email}
         await entry.update({ "notifications": firebase.firestore.FieldValue.arrayUnion(details)});
       } else{
         alert('Fill all parameters')
       }
+      this.loading = null
     }
   }
 }

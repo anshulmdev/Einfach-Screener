@@ -57,6 +57,15 @@
         </ul>
       </div>
     </div>
+        <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous" />
+
+      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50"  style="top: 50%; left: 50%">
+        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0">
+          <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+        </span>
+      </div>
+    </div>
   </nav>
 </template>
 ); }
@@ -70,6 +79,7 @@ export default {
   data() {
     return {
       collapseShow: "hidden",
+      loading:null
     }
   },
   props: {
@@ -117,6 +127,7 @@ export default {
       this.collapseShow = classes
     },
     async logout() {
+      this.loading = true
       const candidateInfo = this.candidateData
       const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)
       const snapshotData = await firebase.firestore().collection("scores").doc(companyUid).get()
@@ -147,6 +158,7 @@ export default {
       await entry.update({
         "candidates.ongoing": firebase.firestore.FieldValue.arrayRemove(candidateInfo),
       })
+      this.loading = null
       VueCookies.remove("fbb3em24")
       VueCookies.remove("fbb3cu24")
     },
