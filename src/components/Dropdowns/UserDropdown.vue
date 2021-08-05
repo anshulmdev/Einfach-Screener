@@ -33,6 +33,15 @@
         Close Test
       </a>
     </div>
+        <div v-if="loading">
+      <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous" />
+
+      <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50"  style="top: 50%; left: 50%">
+        <span class="text-green-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0">
+          <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +55,7 @@ export default {
   data() {
     return {
       dropdownPopoverShow: false,
+      loading:null,
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqmn8-9Vb7FEOLeMEvW6DoLoRyMBP8joLEbg&usqp=CAU",
     };
@@ -66,6 +76,7 @@ export default {
       }
     },
     async logout() {
+      this.loading = true
       const candidateInfo = this.candidateData;
       const companyUid = CryptoJS.AES.decrypt(
         VueCookies.get("fbb3cu24"),
@@ -114,7 +125,7 @@ export default {
           candidateInfo
         ),
       });
-
+      this.loading = null
       VueCookies.remove("fbb3em24");
       VueCookies.remove("fbb3cu24");
     },

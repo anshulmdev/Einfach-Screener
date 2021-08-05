@@ -160,7 +160,7 @@ export default {
             "candidates.ongoing": firebase.firestore.FieldValue.arrayUnion(details),
           })
           this.$router.push({
-            path: "/admin/ticket",
+            path: "/admin/mcq",
           })
         } catch (err) {
           alert(err.message)

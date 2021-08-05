@@ -17,14 +17,14 @@
             </p>
             <div class="mt-12">
               <a
-                href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
+                href="https://www.einfach.in"
                 target="_blank"
                 class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-emerald-500 active:bg-emerald-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
               >
                 Get started
               </a>
               <a
-                href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
+                href="mailto:support@einfach.in"
                 class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 target="_blank"
               >
@@ -225,7 +225,7 @@
               </span>
             </div>
             <a
-              href="#"
+              href="https://www.einfach.in/"
               target="_blank"
               class="font-bold text-blueGray-700 hover:text-blueGray-500 ease-linear transition-all duration-150"
             >
@@ -362,7 +362,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.einfach.in/"
                   target="_blank"
                 >
                   <div
@@ -445,7 +445,7 @@
               </span>
             </div>
             <a
-              href="#"
+              href="https://www.einfach.in/"
               target="_blank"
               class="font-bold text-blueGray-700 hover:text-blueGray-500 ease-linear transition-all duration-150"
             >
@@ -635,7 +635,7 @@
               to our backend system directly from your websites which enables easy access to applicants to carry out job application
             </p>
             <a
-              href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
+              href="https://www.einfach.in"
               target="_blank"
               class="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
             >
