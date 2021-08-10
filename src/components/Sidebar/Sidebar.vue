@@ -128,6 +128,7 @@ export default {
     },
     async logout() {
       this.loading = true
+      try{
       const candidateInfo = this.candidateData
       const companyUid = CryptoJS.AES.decrypt(VueCookies.get("fbb3cu24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)
       const snapshotData = await firebase.firestore().collection("scores").doc(companyUid).get()
@@ -141,7 +142,9 @@ export default {
             score += e.score
           })
         } else {
+          if(scoreInfo[e].score && parseInt(scoreInfo[e].score)){
           score += scoreInfo[e].score
+          }
         }
       })
       candidateInfo.score = score
@@ -161,6 +164,11 @@ export default {
       this.loading = null
       VueCookies.remove("fbb3em24")
       VueCookies.remove("fbb3cu24")
+      } catch (err) {
+      this.loading = null
+      VueCookies.remove("fbb3em24")
+      VueCookies.remove("fbb3cu24")
+      }
     },
   },
 }

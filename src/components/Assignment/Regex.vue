@@ -102,10 +102,13 @@ export default {
         body: JSON.stringify(database),
         headers: { "Content-Type": "application/json; charset=UTF-8" },
       })
-      const score = await req.json()
+      let score = await req.json()
+      console.log('score', score)
+      if (!parseInt(score)) score = 0
       const attempted = Object.values(this.questions).filter((e) => e.selected).length
       const details = {}
       details[CryptoJS.AES.decrypt(VueCookies.get("fbb3em24"), "736b9960-fbb3-4430-a653-f9f4d58ddfe1").toString(CryptoJS.enc.Utf8)] = { regex: { score, attempted } }
+      console.log(details)
       await firebase
         .firestore()
         .collection("scores")
