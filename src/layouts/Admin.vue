@@ -102,7 +102,7 @@ export default {
                   await navigator.mediaDevices.getUserMedia({ video: true })
                   await navigator.mediaDevices.getUserMedia({ audio: true })
                 } catch (err) {
-                  // alert ('Permission Revoked')
+                  alert ('Permission Revoked')
                 }
               }, 1000);
             }
