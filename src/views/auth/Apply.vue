@@ -22,6 +22,21 @@
                   </div>
                 </div>
               </div>
+
+              <div v-if="showSuccessPopup" class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 m-4">
+                <div class="flex items-center justify-center w-12 bg-emerald-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 m-2" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+
+                <div class="px-4 py-2 -mx-3">
+                  <div class="mx-3">
+                    <span class="font-semibold text-emerald-500 dark:text-green-400">Success</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-200">Your form has been submitted successfully</p>
+                  </div>
+                </div>
+              </div>
               <hr class="mt-1 mb-6 pb-6 border-b-1 border-blueGray-300" />
               <form>
                 <div class="grid grid-cols-1 mb-2 md:grid-cols-2 gap-5 md:gap-8 mt-5">
@@ -95,21 +110,6 @@
                   <button @click="apply()" class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150" type="button">Apply Position</button>
                 </div>
               </form>
-
-              <div v-if="showSuccessPopup" class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 m-4">
-                <div class="flex items-center justify-center w-12 bg-emerald-500">
-                  <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-                </div>
-
-                <div class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-emerald-500 dark:text-green-400">Success</span>
-                    <p class="text-sm text-gray-600 dark:text-gray-200">Your form has been submitted successfully</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -138,6 +138,7 @@ export default {
       formData: null,
       loading: true,
       showSuccessPopup: null,
+      submit: true,
       form: {
         fname: null,
         lname: null,
@@ -152,7 +153,7 @@ export default {
   methods: {
     async apply() {
       this.loading = true
-      if (this.form.fname && this.form.lname && this.form.email && this.form.phone && this.form.area && this.form.exp && this.form.resume) {
+      if (this.submit && this.form.fname && this.form.lname && this.form.email && this.form.phone && this.form.area && this.form.exp && this.form.resume) {
         const { email, exp: experience, fname, lname, phone, area } = this.form
         const areaLabel = { "Node Js": "success", Python: "success", "Digital Ocean": "primary", Azure: "primary", "Amazon Web": "danger", "Google Cloud": "info", Fresher: "warning" }
         var storageRef = firebase.storage().ref()
@@ -165,10 +166,11 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const res = await actualPath.update({ "candidates.applied": firebase.firestore.FieldValue.arrayUnion(details) })
         this.showSuccessPopup = true
+        this.submit = false
         setTimeout(() => {
           this.showSuccessPopup = null
-        }, 2000)
-      } else alert("Data Missing")
+        }, 5000)
+      } else alert("Data Missing or Submitted Already")
       this.loading = null
     },
     handleFileUpload(func) {
