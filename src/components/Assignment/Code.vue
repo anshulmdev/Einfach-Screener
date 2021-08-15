@@ -222,21 +222,9 @@ console.log(yourFunction(yourInput ))
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
-    async submitCode(code, question, category) {
-      const answers = await axios.get(`https://hire-298805-default-rtdb.firebaseio.com/coding/${category}Answers.json`)
-      const testCases = answers.data[question]
-      const response = []
-      const testData = testCases.testCases.filter(Boolean)
-      for (let i in testData) {
-        const token = await this.getToken(code, testData[i])
-        setTimeout(async () => {
-          const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
-          const res = await ans.data
-          if (parseInt(res.stdout.split("\n")[0]) === testCases.answers[i]) response.push({ time: res.time, output: true })
-          else response.push({ time: res.time, output: false })
-          if (response.length === 3) this.submitResponse = response
-        }, 4000)
-      }
+    async submitCode(code, question, category, id) {
+      const response = await axios.post('https://einfach.api.stdlib.com/application@dev/code/codeSubmit/', {code, question, category, id})
+      this.submitResponse = response.data
       this.loading = null
       setTimeout(() => {
         this.status = 'Failed'
@@ -312,7 +300,7 @@ console.log(yourFunction(yourInput ))
       }
       if (tabNumber === 3) {
         this.loading = true
-        this.submitCode(this.assignTemplate[this.checkQues], Object.values(this.questions)[this.currentQuestionIndex].heading, this.category)
+        this.submitCode(this.assignTemplate[this.checkQues], Object.values(this.questions)[this.currentQuestionIndex].heading, this.category, this.checkId)
       }
     },
     highlighter(code) {
