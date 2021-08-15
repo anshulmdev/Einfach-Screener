@@ -13,8 +13,7 @@ export default {
   data() {
     return {
       dropdownPopoverShow: false,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png',
-      languages: null,
+      languages: [{id: 63, name: "JavaScript (Node.js 12.14.0)"}, {id: 71, name: "Python (3.8.1)"}],
       languageSelected: 'JavaScript (Node.js 12.14.0)'
     };
   },
@@ -29,14 +28,7 @@ export default {
           placement: "bottom-start",
         });
       }
-    },
-    async getLanguages () {
-      const req = await fetch('https://api.einfach.in/languages')
-      this.languages = await req.json()
     }
-  },
-  created() {
-    this.getLanguages()
   }
 };
 </script>

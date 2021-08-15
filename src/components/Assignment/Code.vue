@@ -202,7 +202,7 @@ console.log(yourFunction(yourInput ))
         71: "[1,2,3,4]",
         63: "[5,6,7,8]",
       },
-      languages: null,
+      languages: [{id: 63, name: "JavaScript (Node.js 12.14.0)"}, {id: 71, name: "Python (3.8.1)"}],
       languageSelected: "JavaScript (Node.js 12.14.0)",
     }
   },
@@ -230,40 +230,9 @@ console.log(yourFunction(yourInput ))
         this.status = 'Failed'
       }, 10000);
     },
-    async getToken(code, test) {
-      // eslint-disable-next-line no-unused-vars
-      const reqBody = {
-        source_code: code,
-        language_id: this.checkId,
-        number_of_runs: "1",
-        stdin: test,
-        expected_output: null,
-        cpu_time_limit: "2",
-        cpu_extra_time: "0.5",
-        wall_time_limit: "5",
-        memory_limit: "128000",
-        stack_limit: "64000",
-        max_processes_and_or_threads: "60",
-        enable_per_process_and_thread_time_limit: false,
-        enable_per_process_and_thread_memory_limit: false,
-        max_file_size: "1024",
-      }
-      try {
-        const req = await axios.post("https://api.einfach.in/submissions/", reqBody)
-        const token = await req.data
-        return token.token
-      } catch (err) {
-        return err.message
-      }
-    },
     async runSingleCode() {
-      const token = await this.getToken(this.assignTemplate[this.checkQues], this.testTemplate[this.checkQues])
-      setTimeout(async () => {
-        const ans = await axios.get(`https://api.einfach.in/submissions/${token}`)
-        const res = await ans.data
-        if (res.stderr) this.runResponse = res.stderr
-        else this.runResponse = res.stdout
-      }, 1000)
+      const req = await axios.post('https://einfach.api.stdlib.com/application@dev/code/codeCheck/', {code: this.assignTemplate[this.checkQues], testCase: this.testTemplate[this.checkQues], id: this.checkId})
+      this.runResponse = req.data
     },
     async checkAndFetch() {
       this.openTab = 1
@@ -318,11 +287,6 @@ console.log(yourFunction(yourInput ))
         this.currentQuestionIndex -= 1
       }
     },
-    async getLanguages() {
-      const req = await fetch("https://api.einfach.in/languages")
-      const languages = await req.json()
-      this.languages = languages.filter((e) => e.name === "Python (3.8.1)" || e.name === "JavaScript (Node.js 12.14.0)")
-    },
   },
   components: {
     PrismEditor,
@@ -340,7 +304,6 @@ console.log(yourFunction(yourInput ))
   created() {
     this.loading = true
     this.checkAndFetch()
-    this.getLanguages()
   },
 }
 </script>
