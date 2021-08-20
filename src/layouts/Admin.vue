@@ -83,7 +83,7 @@ export default {
             });
             this.candidateDatabase = candidateData
             if (!ongoingValid) {
-              this.$router.push({ path: "/" });
+              window.location.href = "https://airtable.com/shr9f5FIo6zaEGEna"
             } else {
               setInterval(async () => {
                 const loginTime = new Date(candidateData.timeStamp);
@@ -95,7 +95,7 @@ export default {
                 if((testDuration - seconds) < 0) {
                   VueCookies.remove("fbb3em24")
                   VueCookies.remove("fbb3cu24")
-                  this.$router.push({ path: "/" });
+                  window.location.href = "https://airtable.com/shr9f5FIo6zaEGEna"
                 }
                 this.secondsLeft = secondsToHms(testDuration - seconds);
                 try {
@@ -112,7 +112,7 @@ export default {
             console.log(`Encountered error: ${err}`);
             VueCookies.remove("fbb3em24")
             VueCookies.remove("fbb3cu24")
-            this.$router.push({ path: "/" });
+            window.location.href = "https://airtable.com/shr9f5FIo6zaEGEna"
           }
         );
       } else {
