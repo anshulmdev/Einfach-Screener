@@ -233,8 +233,8 @@ console.log(yourFunction(yourInput ))
     async runSingleCode() {
       try {
       const body = {code: this.assignTemplate[this.checkQues], testCase: this.testTemplate[this.checkQues], id: this.checkId}
-      const req = await axios.post('https://us-central1-autocode-gmail-318111.cloudfunctions.net/codeCheck', body)
-      this.runResponse = req
+      const req = await axios.post('https://einfach.api.stdlib.com/application@dev/code/codeCheck/', body)
+      this.runResponse = req.data
       } catch(err) {
         this.runResponse = err.message
       }
