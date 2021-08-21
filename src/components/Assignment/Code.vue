@@ -231,8 +231,13 @@ console.log(yourFunction(yourInput ))
       }, 10000);
     },
     async runSingleCode() {
-      const req = await axios.post('https://einfach.api.stdlib.com/application@dev/code/codeCheck/', {code: this.assignTemplate[this.checkQues], testCase: this.testTemplate[this.checkQues], id: this.checkId})
-      this.runResponse = req.data
+      try {
+      const body = {code: this.assignTemplate[this.checkQues], testCase: this.testTemplate[this.checkQues], id: this.checkId}
+      const req = await axios.post('https://us-central1-autocode-gmail-318111.cloudfunctions.net/codeCheck', body)
+      this.runResponse = req
+      } catch(err) {
+        this.runResponse = err.message
+      }
     },
     async checkAndFetch() {
       this.openTab = 1
