@@ -177,7 +177,7 @@ console.log(yourFunction(yourInput ))
       },
       testTemplate: { [`${this.category}063`]: "[1, 2, 3, 4]" },
       code: {
-        71: `testCase = input().strip('][').split(',')
+        71: `testCase = eval(input())
 
 def yourFunction (nums):
     return nums
