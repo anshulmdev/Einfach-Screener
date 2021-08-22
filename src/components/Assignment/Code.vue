@@ -141,6 +141,7 @@ import "vue-prism-editor/dist/prismeditor.min.css" // import the styles somewher
 import { highlight, languages } from "prismjs/components/prism-core"
 import "prismjs/components/prism-clike"
 import "prismjs/components/prism-javascript"
+import "prismjs/components/prism-python"
 import "prismjs/themes/prism-tomorrow.css" // import syntax highlighting styles
 
 import VueCookies from "vue-cookies"
@@ -278,7 +279,8 @@ console.log(yourFunction(yourInput ))
       }
     },
     highlighter(code) {
-      return highlight(code, languages.js) // languages.<insert language> to return html with markup
+      if(this.checkId === 63) return highlight(code, languages.js)
+      if(this.checkId === 71) return highlight(code, languages.py)
     },
     next() {
       if (this.currentQuestionIndex < this.totalQuestion) {
