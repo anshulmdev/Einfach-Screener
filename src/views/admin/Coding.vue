@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-wrap mt-4">
-    <div class="w-full mb-12 px-4">
-      <Code :category="categoryCoding" />
+  <div class="flex flex-wrap m-1">
+    <div class="w-full">
+      <Code :method="hideComponents" :category="categoryCoding" />
     </div>
   </div>
 </template>
@@ -9,12 +9,20 @@
 import Code from "@/components/Assignment/Code.vue";
 
 export default {
+  props: {
+    method: { type: Function },
+  },
   components: {
     Code,
   },
   computed: {
     categoryCoding () {
       return this.$route.params.id
+    }
+  },
+  methods: {
+    hideComponents() {
+      this.method()
     }
   }
 };

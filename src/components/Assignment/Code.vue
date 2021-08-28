@@ -3,17 +3,18 @@
     <div v-if="questions" class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded" :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
-          <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:pr-10 px-4">
+          <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:pr-10">
             <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-black-700' : 'text-white']">
               Questions: {{ currentQuestionIndex + 1 }} :
               {{ Object.values(questions)[currentQuestionIndex].heading }}
             </h3>
-            <ul class="flex-col md:flex-row list-none items-center hidden md:flex pt-2">
-              <div v-if="languages">
-                <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black">
+            <ul class="flex-col jnline-block align-middle md:flex-row list-none items-center hidden md:flex pt-2">
+                <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black mr-1">
                   <option v-for="item in languages" :key="item">{{ item.name }}</option>
                 </select>
-              </div>
+              <button class="bg-white text-white active:bg-emerald-800 font-bold uppercase text-xs px-3 py-1 mt-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" @click="runParent">
+                <i class="fas fa-expand text-lg text-black"></i>
+              </button>
             </ul>
           </div>
         </div>
@@ -32,7 +33,7 @@
             <div class="p-4 rounded shadow-lg bg-white text-black border-b border-r border-grey-dark">
               <div class="flex flex-wrap">
                 <div class="w-full">
-                  <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+                  <ul class="flex mb-0 list-none flex-wrap pt-3 pb-2 flex-row">
                     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                       <a
                         class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
@@ -70,7 +71,7 @@
                       </a>
                     </li>
                   </ul>
-                  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white w-full  shadow-lg rounded">
                     <div class="px-4 py-5 flex-auto">
                       <div class="tab-content tab-space">
                         <div
@@ -79,7 +80,7 @@
                             block: openTab === 1,
                           }"
                         >
-                          <textarea v-model="this.testTemplate[this.checkQues]" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="6" />
+                          <textarea v-model="this.testTemplate[this.checkQues]" type="text" rows="8" class="border-0 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                         </div>
                         <div
                           v-bind:class="{
@@ -174,7 +175,17 @@ var yourFunction = function(nums) {
 };
 console.log(yourFunction(yourInput ))
 
-} )`,
+} )
+
+
+
+
+
+
+
+
+
+`,
       },
       testTemplate: { [`${this.category}063`]: "[1, 2, 3, 4]" },
       code: {
@@ -184,7 +195,16 @@ def yourFunction (nums):
     return nums
     
     
-print(yourFunction(testCase))`,
+print(yourFunction(testCase))
+
+
+
+
+
+
+
+
+`,
         63: `process.stdin.once('data', (chunk) => { 
 
 yourInput = chunk.toString()
@@ -197,7 +217,16 @@ var yourFunction = function(nums) {
 };
 console.log(yourFunction(yourInput ))
 
-} )`,
+} )
+
+
+
+
+
+
+
+
+`,
       },
       test: {
         71: "[1,2,3,4]",
@@ -209,6 +238,7 @@ console.log(yourFunction(yourInput ))
   },
   props: {
     category: String,
+    method: { type: Function }
   },
   watch: {
     category() {
@@ -222,6 +252,10 @@ console.log(yourFunction(yourInput ))
     },
   },
   methods: {
+    runParent () {
+      console.log('child working')
+      this.method()
+    },
     // eslint-disable-next-line no-unused-vars
     async submitCode(code, question, category, id) {
       const response = await axios.post('https://einfach.api.stdlib.com/application@dev/code/codeSubmit/', {code, question, category, id})
@@ -323,12 +357,12 @@ console.log(yourFunction(yourInput ))
   font-size: 14px;
   line-height: 1.5;
   padding: 2px;
-  min-height: 420px;
-  max-height: 420px;
+  min-height: 320px;
+  max-height: 320px;
 }
 .customHeight {
-  min-height: 730px;
-  max-height: 730px;
+  min-height: 630px;
+  max-height: 630px;
 }
 
 /* optional class for removing the outline */
@@ -341,8 +375,7 @@ console.log(yourFunction(yourInput ))
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
-  padding: 4px;
-  min-height: 150px;
-  max-height: 150px;
+  min-height: 180px;
+  max-height: 180px;
 }
 </style>

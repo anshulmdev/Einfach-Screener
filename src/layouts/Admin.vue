@@ -1,13 +1,18 @@
 <template>
   <div>
+    <div v-if="showComponents">
     <sidebar :companyData="companyFetchedData" :candidateData="candidateDatabase" />
     <div class="relative md:ml-64 bg-blueGray-100">
       <admin-navbar :seconds="secondsLeft" :candidateData="candidateDatabase" />
       <header-stats :companyData="companyFetchedData" :candidate="candidateDatabase" />
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
-        <router-view />
+        <router-view :method="hideComponents" />
         <footer-admin />
       </div>
+    </div>
+    </div>
+    <div v-else>
+      <router-view :method="hideComponents" />
     </div>
     <div v-if="loading">
       <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.10.0-11/css/all.min.css" integrity="sha256-p9TTWD+813MlLaxMXMbTA7wN/ArzGyW/L7c5+KkjOkM=" crossorigin="anonymous">
@@ -37,7 +42,8 @@ export default {
       secondsLeft: "",
       companyFetchedData: null,
       candidateDatabase: null,
-      loading: null
+      loading: null,
+      showComponents: true
     };
   },
   components: {
@@ -122,6 +128,9 @@ export default {
       }
       this.loading = null
     },
+    hideComponents() {
+      this.showComponents = !this.showComponents
+    }
   },
   created() {
     this.loading = true
