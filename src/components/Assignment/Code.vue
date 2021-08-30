@@ -12,8 +12,8 @@
                 <select v-model="languageSelected" class="py-1 px-1 rounded-md mt-1 text-black mr-1">
                   <option v-for="item in languages" :key="item">{{ item.name }}</option>
                 </select>
-              <button class="bg-white text-white active:bg-emerald-800 font-bold uppercase text-xs px-3 py-1 mt-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" @click="runParent">
-                <i class="fas fa-expand text-lg text-black"></i>
+              <button class="bg-emerald-800 font-bold uppercase px-3 py-1 mt-1 rounded shadow" @click="runParent">
+                <i class="fas fa-expand text-xl text-black"></i>
               </button>
             </ul>
           </div>
@@ -80,7 +80,7 @@
                             block: openTab === 1,
                           }"
                         >
-                          <textarea v-model="this.testTemplate[this.checkQues]" type="text" rows="8" class="border-0 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                          <textarea v-model="this.testTemplate[this.checkQues]" type="text" rows="4" class="border-0 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                         </div>
                         <div
                           v-bind:class="{
@@ -88,7 +88,7 @@
                             block: openTab === 2,
                           }"
                         >
-                          <textarea v-model="runResponse" type="text" class="console w-full" rows="6" disabled />
+                          <textarea v-model="runResponse" type="text" class="console w-full" rows="4" disabled />
                         </div>
                         <div
                           v-bind:class="{
@@ -140,10 +140,14 @@ import "vue-prism-editor/dist/prismeditor.min.css" // import the styles somewher
 
 // import highlighting library (you can use any library you want just return html string)
 import { highlight, languages } from "prismjs/components/prism-core"
+import "prismjs/components/prism-markup-templating.js"
 import "prismjs/components/prism-clike"
+import "prismjs/components/prism-c.min.js"
+import "prismjs/components/prism-cpp.min.js"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-python"
-import "prismjs/themes/prism-tomorrow.css" // import syntax highlighting styles
+import "prismjs/components/prism-php"
+import "prismjs/components/prism-cpp"
 
 import VueCookies from "vue-cookies"
 import firebase from "../../firebase"
@@ -176,15 +180,6 @@ var yourFunction = function(nums) {
 console.log(yourFunction(yourInput ))
 
 } )
-
-
-
-
-
-
-
-
-
 `,
       },
       testTemplate: { [`${this.category}063`]: "[1, 2, 3, 4]" },
@@ -196,14 +191,6 @@ def yourFunction (nums):
     
     
 print(yourFunction(testCase))
-
-
-
-
-
-
-
-
 `,
         63: `process.stdin.once('data', (chunk) => { 
 
@@ -218,21 +205,40 @@ var yourFunction = function(nums) {
 console.log(yourFunction(yourInput ))
 
 } )
-
-
-
-
-
-
-
-
 `,
+        68: `<?php
+$var = str_split(trim(fgets(STDIN)));
+foreach($var as $key => $value)
+{
+  echo $value;
+}
+?>
+`,
+        54: `// Input will be taken as '[1,2,3,4,5]' 
+// You have to convert it into array'
+
+#include <iostream>
+#include <cstring>
+ 
+using namespace std;
+ 
+int main()
+{
+    string nums;
+    cin >> nums;
+    const char *str = nums.c_str();
+    const int len = nums.size();
+    cout << nums;
+    return 0;
+}`
       },
       test: {
         71: "[1,2,3,4]",
         63: "[5,6,7,8]",
+        68: "[5,6,7,8]",
+        54: "[1,2,3,4]"
       },
-      languages: [{id: 63, name: "JavaScript (Node.js 12.14.0)"}, {id: 71, name: "Python (3.8.1)"}],
+      languages: [{id: 63, name: "JavaScript (Node.js 12.14.0)"}, {id: 71, name: "Python (3.8.1)"}, {id:68,name:"PHP (7.4.1)"}, {id:54,name:"C++ (GCC 9.2.0)"}],
       languageSelected: "JavaScript (Node.js 12.14.0)",
     }
   },
@@ -315,6 +321,8 @@ console.log(yourFunction(yourInput ))
     highlighter(code) {
       if(this.checkId === 63) return highlight(code, languages.js)
       if(this.checkId === 71) return highlight(code, languages.py)
+      if(this.checkId === 68) return highlight(code, languages.php)
+      if(this.checkId === 54) return highlight(code, languages.cpp)
     },
     next() {
       if (this.currentQuestionIndex < this.totalQuestion) {
@@ -357,8 +365,8 @@ console.log(yourFunction(yourInput ))
   font-size: 14px;
   line-height: 1.5;
   padding: 2px;
-  min-height: 320px;
-  max-height: 320px;
+  min-height: 420px;
+  max-height: 420px;
 }
 .customHeight {
   min-height: 630px;
@@ -375,7 +383,7 @@ console.log(yourFunction(yourInput ))
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
-  min-height: 180px;
-  max-height: 180px;
+  min-height: 80px;
+  max-height: 80px;
 }
 </style>
