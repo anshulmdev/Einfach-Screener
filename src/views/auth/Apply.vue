@@ -64,6 +64,7 @@
                   <div class="grid grid-cols-1 mr-2">
                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password"> Area of Expertise </label>
                     <select v-model="form.area" class="py-2 px-3 rounded-md mt-1">
+                      <option>JavaScript</option>
                       <option>Node Js</option>
                       <option>Python</option>
                       <option>Digital Ocean</option>
@@ -155,7 +156,7 @@ export default {
       this.loading = true
       if (this.submit && this.form.fname && this.form.lname && this.form.email && this.form.phone && this.form.area && this.form.exp && this.form.resume) {
         const { email, exp: experience, fname, lname, phone, area } = this.form
-        const areaLabel = { "Node Js": "success", Python: "success", "Digital Ocean": "primary", Azure: "primary", "Amazon Web": "danger", "Google Cloud": "info", Fresher: "warning" }
+        const areaLabel = { JavaScript:"warning", "Node Js": "success", Python: "success", "Digital Ocean": "primary", Azure: "primary", "Amazon Web": "danger", "Google Cloud": "info", Fresher: "warning" }
         var storageRef = firebase.storage().ref()
         var imageRef = storageRef.child(`${this.$route.params.id}/resume/${this.form.email}`)
         // eslint-disable-next-line no-unused-vars
